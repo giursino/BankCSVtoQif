@@ -113,11 +113,11 @@ You can use an existing bank like `db_giro.py` as a blueprint. The abstract clas
 
 You can use an existing test like `test_db_giro.py` as a blueprint. Test your bank on your local machine an make a pull request when you are finished.
 
-It is a good idea to write tests, to install the dependencies used for testing and execute the test, just do
+It is a good idea to write tests, to install the dependencies used for testing and execute the test, just do::
 
     python setup.py test 
 
-then to execute, do:
+then to execute, do::
 
     python -m unittest test.test_banks
     # or
