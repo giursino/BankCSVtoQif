@@ -58,10 +58,11 @@ class Transaction(object):
     def to_qif_line(self):
         return [
             '!Type:Cash',
-            'D' + self.date.strftime('%m/%d/%y'),
-            'S' + self.target_account,
-            'P' + self.description,
-            '$' + '%.2f' % self.amount,
+            'D' + self.date.strftime('%d/%m/%Y'),
+            'L' + self.target_account,
+            'P<COMPLETARE>',
+            'M' + self.description,
+            'T' + '%.2f' % self.amount,
             '^'
         ]
 
