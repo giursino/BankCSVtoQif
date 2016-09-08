@@ -34,6 +34,10 @@ Installation
 
     python b2q.py -h
 
+* [GU]: Dopo averlo installato sul PC s può eseguire senza entrare nella cartella dei sorgenti, ma come un file binario, invocando il comando::
+
+    python -m b2q fineco movimenti.csv
+
 
 Example: Deutsche Bank Checking Account
 ---------------------------------------
