@@ -36,6 +36,7 @@ class BankAccountConfig(object):
         self.dropped_lines = None
         self.default_source_account = None
         self.default_target_account = None
+        self.default_memo = None
 
     def get_absolute_amount(self, amount):
         amount = amount.strip('-')
@@ -111,3 +112,12 @@ class BankAccountConfig(object):
 
         """
         return self.default_source_account
+
+    def get_memo(self, line):
+        """
+        This function can be overloaded.
+        :param line: #of csv
+        :return: memo of transaction
+
+        """
+        return self.default_memo

@@ -34,18 +34,20 @@ def consume(iterator, n):
 class Transaction(object):
     """ Represents a transaction obtained from csv-file. """
 
-    def __init__(self, date, description, debit, credit, target_account, source_account='Assets:Current Assets:Checking Account'):
+    def __init__(self, date, description, memo, debit, credit, target_account, source_account='Assets:Current Assets:Checking Account'):
         self.date = date
         self.description = description
+        self.memo = memo
         self.debit = debit
         self.credit = credit
         self.target_account = target_account
         self.source_account = source_account
 
     def __str__(self):
-        return '<Transaction %s, %s, %s, %s, %s>'% (
+        return '<Transaction %s, %s, %s, %s, %s, %s>'% (
             self.date,
             self.description,
+            self.memo,
             self.debit,
             self.credit,
             self.target_account
@@ -60,8 +62,8 @@ class Transaction(object):
             '!Type:Cash',
             'D' + self.date.strftime('%d/%m/%Y'),
             'L' + self.target_account,
-            'P<COMPLETARE>',
-            'M' + self.description,
+            'P' + self.description,
+            'M' + self.memo,
             'T' + '%.2f' % self.amount,
             '^'
         ]
@@ -77,6 +79,7 @@ class TransactionFactory(object):
         return Transaction(
             date=self.account_config.get_date(line),
             description=self.account_config.get_description(line),
+            memo=self.account_config.get_memo(line),
             debit=self.account_config.get_debit(line),
             credit=self.account_config.get_credit(line),
             target_account=self.account_config.get_target_account(line),
