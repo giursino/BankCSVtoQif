@@ -38,11 +38,10 @@ Installation
 
     b2q fineco movimenti.csv
 
-* To convert Excel xls file to CSV, it is possibile to install xls2csv::
+* To convert Excel xls file to CSV, it is possibile to install and run xls2csv::
 
     sudo apt-get install catdoc
-
-  And run:: `xls2csv excelfile.xls`
+    xls2csv excelfile.xls
 
 
 Example: Deutsche Bank Checking Account
@@ -116,14 +115,14 @@ You can use an existing test like `test_db_giro.py` as a blueprint. Test your ba
 
 It is a good idea to write tests, to install the dependencies used for testing and execute the test, just do
 
-    # from setup:
     python setup.py test 
-    
-    # from local:
+
+then to execute, do:
+
     python -m unittest test.test_banks
     # or
     python -m unittest discover
-    
+
 Uninstallation
 --------------
 To remove BankCSVtoQif uninstall the python library by deleting all its files. You can get a list of these via::
