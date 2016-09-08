@@ -34,5 +34,10 @@ setup(
     packages=find_packages(),
     test_suite='bankcsvtoqif.tests',
     tests_require=['pytest'],
-    install_requires=['monthdelta']
+    install_requires=['monthdelta'],
+    entry_points={
+        'console_scripts': [
+            'b2q = bankcsvtoqif.__main__:main'
+        ]
+    },
 )
