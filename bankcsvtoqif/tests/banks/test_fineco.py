@@ -29,7 +29,7 @@ target_account = 'Sbilancio-EUR'
 class TestFinecoFastpay(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016,07/08/2016,,"10,1",FastPay,Addebito FASTPAY Pedaggi da 01/08/16 al 31/08/16 Numero di pagamenti effettuati: 1"""
+        self.csv = """07/09/2016,07/08/2016,,"10.1",FastPay,Addebito FASTPAY Pedaggi da 01/08/16 al 31/08/16 Numero di pagamenti effettuati: 1"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -103,7 +103,7 @@ class TestFinecoBonificoOut(unittest.TestCase):
 class TestFinecoBonificoIn(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """10/06/2016,10/06/2016,"39,3",,Bonifico SEPA Italia,Ord: FASI Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
+        self.csv = """10/06/2016,10/06/2016,"39.3",,Bonifico SEPA Italia,Ord: FASI Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -127,7 +127,7 @@ class TestFinecoBonificoIn(unittest.TestCase):
 class TestFinecoVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """22/06/2016,18/06/2016,,"13,53",Pagamenti Visa Debit,REPSOL DISTRIBUTORE    VIGONZA       IT Carta N. *****513 Data operazione 18/06/2016"""
+        self.csv = """22/06/2016,18/06/2016,,"13.53",Pagamenti Visa Debit,REPSOL DISTRIBUTORE    VIGONZA       IT Carta N. *****513 Data operazione 18/06/2016"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
