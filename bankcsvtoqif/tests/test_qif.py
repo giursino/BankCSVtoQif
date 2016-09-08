@@ -30,6 +30,7 @@ class TestQifFile(unittest.TestCase):
         self.date = datetime(2015, 5, 1)
         self.account = 'Assets:Current Assets:Checking Account'
         self.description = 'icecream'
+        self.memo = 'memo'
         self.amount = - 2.50
 
     def test_create_qif(self):
@@ -37,7 +38,7 @@ class TestQifFile(unittest.TestCase):
         self.assertEqual(q.transactions, ['foo'])
 
     def test_get_raw_data(self):
-        t = Transaction(self.date, self.description, 0, self.amount, 'Expenses:Rent')
+        t = Transaction(self.date, self.description, self.memo, 0, self.amount, 'Expenses:Rent')
         lines = [
             '!Account',
             'N' + self.account,
