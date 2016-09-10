@@ -32,7 +32,7 @@ class Arancio(BankAccountConfig):
         self.delimiter = ','
         self.quotechar = '"'
         self.dropped_lines = 1
-        self.default_source_account = 'Attività:Attività correnti:Conto Corrente Arancio'
+        self.default_source_account = 'Attività:Attività correnti:Conto corrente'
         self.default_target_account = 'Sbilancio-EUR'
         self.default_memo = ''
 
@@ -64,7 +64,7 @@ class Arancio(BankAccountConfig):
             description = "Prelievo"
             
         elif (ttype == "ADD. RICARICA TELEFONICA"):
-            description = "Ricarica telefonica"
+            description = "H3G"
             
         return ' '.join(description.split())
         
@@ -89,9 +89,9 @@ class Arancio(BankAccountConfig):
         ttype = line[2]
         
         if (ttype == "PRELIEVO CARTA"):
-            target = "Attività:Attività correnti:Liquidità:Portafoglio"
+            target = "Attività:Attività correnti:Liquidità"
             
         elif (ttype == "ADD. RICARICA TELEFONICA"):
-            target = "Uscite:Cellulare"
+            target = "Uscite:Servizi Internet"
             
         return target

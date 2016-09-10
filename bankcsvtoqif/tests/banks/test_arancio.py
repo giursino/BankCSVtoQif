@@ -115,7 +115,7 @@ class TestArancioPrelievo(unittest.TestCase):
         memo = 'Prelievo carta del 22/07/2016 alle ore 00:27 con Carta xxxxxxxxxxxx1111 di Abi Div=EUR Importo in divisa=150 / Importo in Euro=150 presso BCO POPOLARE'
         debit = 150
         credit = 0
-        target_account = "Attività:Attività correnti:Liquidità:Portafoglio"
+        target_account = "Attività:Attività correnti:Liquidità"
         self.assertEqual(account_config.get_date(line), date)
         self.assertEqual(account_config.get_description(line), description)
         self.assertEqual(account_config.get_memo(line), memo)
@@ -136,11 +136,11 @@ class TestArancioRicarica(unittest.TestCase):
         account_config = Arancio()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 6, 30)
-        description = 'Ricarica telefonica'
+        description = 'H3G'
         memo = 'Operazione di ricarica telefonica H3G del numero *** eseguita il 30/06/2016 alle ore 07:02 con Id-transazione ***'
         debit = 20
         credit = 0
-        target_account = "Uscite:Cellulare"
+        target_account = "Uscite:Servizi Internet"
         self.assertEqual(account_config.get_date(line), date)
         self.assertEqual(account_config.get_description(line), description)
         self.assertEqual(account_config.get_memo(line), memo)
