@@ -47,18 +47,18 @@ class Fineco(BankAccountConfig):
         if (ttype == "Pagobancomat POS"):
             d = re.compile('^Pag.*presso\: (.*) Carta.*$')
             g = d.match(line[5])
-            if g.group(1): description = g.group(1)
+            if (g is not None) and (g.group(1)): description = g.group(1)
             
         elif (ttype == "Pagamenti Visa Debit"):
             d = re.compile('^(.*) Carta.*$')
             g = d.match(line[5])
-            if g.group(1): description = g.group(1)
+            if (g is not None) and g.group(1): description = g.group(1)
             
         elif (ttype == "Bonifico SEPA Italia"):
             d = re.compile('^Ben\: (.*) Ins\:.*$|^Ord\: (.*) Ben\:.*$')
             g = d.match(line[5])
-            if g.group(1): description = g.group(1)
-            if g.group(2): description = g.group(2)
+            if (g is not None) and g.group(1): description = g.group(1)
+            if (g is not None) and g.group(2): description = g.group(2)
             
         elif (ttype == "FastPay"):
             description = "Autostrada"

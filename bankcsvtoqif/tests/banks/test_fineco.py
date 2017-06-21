@@ -147,3 +147,51 @@ class TestFinecoVisa(unittest.TestCase):
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoPOSError(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 8, 7)
+        description = '<COMPLETARE>'
+        memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"
+        debit = 10.1
+        credit = 0
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+
+class TestFinecoPOS(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 8, 7)
+        description = "STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA"
+        memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"
+        debit = 10.1
+        credit = 0
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
