@@ -70,10 +70,10 @@ class FinecoComune(BankAccountConfig):
             description = "Fineco"
             
         elif (ttype == "MaxiPrelievo Banche del Gruppo"):
-            description = "Bancomat"
+            description = "Prelievo"
             
         elif (ttype == "Prelievi Bancomat extra Gruppo"):
-            description = "Bancomat"
+            description = "Prelievo"
             
         elif (ttype == "Ricarica telefonica"):
             description = "Ricarica telefonica"
@@ -82,7 +82,12 @@ class FinecoComune(BankAccountConfig):
             d = re.compile('^(.*) A[ ]*d[ ]*d[ ]*e[ ]*b[ ]*i[ ]*t[ ]*o[ ]* S[ ]*S[ ]*D[ ]*.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
-            
+        
+        # Giuseppe
+        elif (ttype == "Giroconto"):
+            d = re.compile('^Giroconto (dal|sul) cc n. 3441990.*01[ -]*.*$')
+            if (g is not None): description = "Giuseppe"
+                        
         return ' '.join(description.split())
         
     def get_memo(self, line):
@@ -143,16 +148,24 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Casalinghi"
                 
-                # FARMACIA
-                d = re.compile('.*F[ ]*A[ ]*R[ ]*M[ ]*A[ ]*C[ ]*I[ ]*A.*$');
+                # AUTOST
+                d = re.compile('^A[ ]*U[ ]*T[ ]*O[ ]*S[ ]*T.*$');
                 g = d.match(description);
-                if (g is not None): return "Uscite:Sanità:Farmaci"
+                if (g is not None): return "Uscite:Trasporti"
             
         elif (ttype == "Bonifico SEPA Italia"):
-            # FASI
-            d = re.compile('Ord\: FASI Ben\:')
+            
+            # Giulia
+            d = re.compile('Ord\: FAVARETTO GIULIA Ben\:')
             g = d.match(line[5])
-            if (g is not None): return "Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria"
+            if (g is not None): return "Entrate:Giulia"
+            
+        elif (ttype == "Giroconto"):
+            
+            # Giuseppe
+            d = re.compile('^Giroconto dal cc n. 3441990.*01[ -]*.*$')
+            g = d.match(line[5])
+            if (g is not None): return "Entrate:Giuseppe"
             
         elif (ttype == "Sepa Direct Debit"):
             
