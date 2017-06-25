@@ -103,7 +103,7 @@ class TestFinecoBonificoOut(unittest.TestCase):
 class TestFinecoBonificoIn(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """10/06/2016,10/06/2016,"39.3",,Bonifico SEPA Italia,Ord: FASI Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
+        self.csv = """10/06/2016,10/06/2016,"39.3",,Bonifico SEPA Italia,Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -113,8 +113,8 @@ class TestFinecoBonificoIn(unittest.TestCase):
         account_config = Fineco()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 6, 10)
-        description = 'FASI'
-        memo = 'Bonifico SEPA Italia - Ord: FASI Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016'
+        description = 'Ascell'
+        memo = 'Bonifico SEPA Italia - Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016'
         debit = 0
         credit = 39.3
         self.assertEqual(account_config.get_date(line), date)
@@ -151,7 +151,7 @@ class TestFinecoVisa(unittest.TestCase):
 class TestFinecoPOSError(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"""
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -162,8 +162,8 @@ class TestFinecoPOSError(unittest.TestCase):
         account_config = Fineco()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 8, 7)
-        description = "STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA"
-        memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"
+        description = "SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA"
+        memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"
         debit = 10.1
         credit = 0
         self.assertEqual(account_config.get_date(line), date)
@@ -171,11 +171,12 @@ class TestFinecoPOSError(unittest.TestCase):
         self.assertEqual(account_config.get_memo(line), memo)
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
 
 class TestFinecoPOS(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -186,8 +187,8 @@ class TestFinecoPOS(unittest.TestCase):
         account_config = Fineco()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 8, 7)
-        description = "STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA"
-        memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"
+        description = "SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA"
+        memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"
         debit = 10.1
         credit = 0
         self.assertEqual(account_config.get_date(line), date)
@@ -195,6 +196,7 @@ class TestFinecoPOS(unittest.TestCase):
         self.assertEqual(account_config.get_memo(line), memo)
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
 
 class TestFinecoRicarica(unittest.TestCase):
 
@@ -214,10 +216,192 @@ class TestFinecoRicarica(unittest.TestCase):
         memo = "Ricarica telefonica - Ricarica telefonica: 3488727259 Data: 16 /06/17 Ora: 18:08"
         debit = 20
         credit = 0
+        target_account = 'Uscite:Cellulare'
         self.assertEqual(account_config.get_date(line), date)
         self.assertEqual(account_config.get_description(line), description)
         self.assertEqual(account_config.get_memo(line), memo)
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
 
 
+class TestFinecoFasi(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """10/06/2016,10/06/2016,"39.3",,Bonifico SEPA Italia,Ord: FASI Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 6, 10)
+        description = 'FASI'
+        memo = 'Bonifico SEPA Italia - Ord: FASI Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016'
+        debit = 0
+        credit = 39.3
+        target_account = 'Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoCarburante(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 15/06/17 ora 17:44 presso: STAZIONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 8, 7)
+        description = "STAZIONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA"
+        memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: STAZIONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"
+        debit = 10.1
+        credit = 0
+        target_account = 'Uscite:Mobilità:Auto:Carburante'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoCarburanteError(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 8, 7)
+        description = "STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA"
+        memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"
+        debit = 10.1
+        credit = 0
+        target_account = 'Uscite:Mobilità:Auto:Carburante'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoAutostradaVisa(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagamenti Visa Debit,AUTOST GRISIGNANO/PADO OVEST         IT Carta N. ***** 513 Data operazione 08/06/17"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 8, 7)
+        description = "AUTOST GRISIGNANO/PADO OVEST IT"
+        memo = "Pagamenti Visa Debit - AUTOST GRISIGNANO/PADO OVEST IT Carta N. ***** 513 Data operazione 08/06/17"
+        debit = 10.1
+        credit = 0
+        target_account = 'Uscite:Mobilità:Auto:Autostrada'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoAutostradaPos(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 8, 7)
+        description = "AUT OST GRISIGNANO/PADO OVEST IT"
+        memo = "Pagobancomat POS - Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"
+        debit = 10.1
+        credit = 0
+        target_account = 'Uscite:Mobilità:Auto:Autostrada'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoFarmaciaVisa(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagamenti Visa Debit,FARMACIA ALL ANGELO    PADOVA        IT Carta N. ***** 513 Data operazione 04/05/17"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 8, 7)
+        description = "FARMACIA ALL ANGELO PADOVA IT"
+        memo = "Pagamenti Visa Debit - FARMACIA ALL ANGELO PADOVA IT Carta N. ***** 513 Data operazione 04/05/17"
+        debit = 10.1
+        credit = 0
+        target_account = 'Uscite:Sanità:Farmaci'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoFarmaciaPos(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 04/03/17 ora 10:58 presso: FARMACIA AI DUE GIGLI VIA DANTE 27 P ADOVA 35100 NFTITA Carta N° *****551 Nessuna commissione"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 8, 7)
+        description = "FARMACIA AI DUE GIGLI VIA DANTE 27 P ADOVA 35100 NFTITA"
+        memo = "Pagobancomat POS - Pag. del 04/03/17 ora 10:58 presso: FARMACIA AI DUE GIGLI VIA DANTE 27 P ADOVA 35100 NFTITA Carta N° *****551 Nessuna commissione"
+        debit = 10.1
+        credit = 0
+        target_account = 'Uscite:Sanità:Farmaci'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)

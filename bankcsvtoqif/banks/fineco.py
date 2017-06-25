@@ -50,7 +50,7 @@ class Fineco(BankAccountConfig):
             if (g is not None) and (g.group(1)): description = g.group(1)
             
         elif (ttype == "Pagamenti Visa Debit"):
-            d = re.compile('^(.*) Carta.*$')
+            d = re.compile('^(.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
             
@@ -118,4 +118,29 @@ class Fineco(BankAccountConfig):
         elif (ttype == "Stipendio"):
             target = "Entrate:Entrate Lavorative:Stipendio"
             
+        elif (ttype == "Pagobancomat POS") or (ttype == "Pagamenti Visa Debit"):
+            description = self.get_description(line)
+            if (description != "<COMPLETARE>"):
+                
+                # STAZIONE_SCANAGATT
+                d = re.compile('^S[ ]*T[ ]*A[ ]*Z[ ]*I[ ]*O[ ]*N[ ]*E[ ]*_[ ]*S[ ]*C[ ]*A[ ]*N[ ]*A[ ]*G[ ]*A[ ]*T[ ]*T.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Mobilità:Auto:Carburante"
+            
+                # AUTOST
+                d = re.compile('^A[ ]*U[ ]*T[ ]*O[ ]*S[ ]*T.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Mobilità:Auto:Autostrada"
+             
+                # FARMACIA
+                d = re.compile('.*F[ ]*A[ ]*R[ ]*M[ ]*A[ ]*C[ ]*I[ ]*A.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Sanità:Farmaci"
+            
+        elif (ttype == "Bonifico SEPA Italia"):
+            # FASI
+            d = re.compile('Ord\: FASI Ben\:')
+            g = d.match(line[5])
+            if (g is not None): return "Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria"
+                
         return target
