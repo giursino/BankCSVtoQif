@@ -162,7 +162,7 @@ class TestFinecoPOSError(unittest.TestCase):
         account_config = Fineco()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 8, 7)
-        description = '<COMPLETARE>'
+        description = "STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA"
         memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"
         debit = 10.1
         credit = 0

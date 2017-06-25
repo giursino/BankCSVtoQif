@@ -45,7 +45,7 @@ class Fineco(BankAccountConfig):
         description = "<COMPLETARE>"
         
         if (ttype == "Pagobancomat POS"):
-            d = re.compile('^Pag.*presso\: (.*) Carta.*$')
+            d = re.compile('^Pag.*presso\: (.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
             g = d.match(line[5])
             if (g is not None) and (g.group(1)): description = g.group(1)
             
