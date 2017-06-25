@@ -79,13 +79,13 @@ class FinecoComune(BankAccountConfig):
             description = "Ricarica telefonica"
             
         elif (ttype == "Sepa Direct Debit"):
-            d = re.compile('^(.*) A[ ]*d[ ]*d[ ]*e[ ]*b[ ]*i[ ]*t[ ]*o[ ]* S[ ]*S[ ]*D[ ]*.*$')
+            d = re.compile('^(.*) A[ ]*d[ ]*d[ ]*e[ ]*b[ ]*i[ ]*t[ ]*o[ ]* S[ ]*D[ ]*D[ ]*.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
         
-        # Giuseppe
         elif (ttype == "Giroconto"):
-            d = re.compile('^Giroconto (dal|sul) cc n. 3441990.*01[ -]*.*$')
+            d = re.compile('^Giroconto (dal|sul) cc n. [0-9]{4}990.*01[ -]*.*$')
+            g = d.match(line[5])
             if (g is not None): description = "Giuseppe"
                         
         return ' '.join(description.split())
@@ -124,7 +124,7 @@ class FinecoComune(BankAccountConfig):
             if (description != "<COMPLETARE>"):
                 
                 # ALI'
-                d = re.compile('^A[ ]*L[ ]*I[ ]\'.*$');
+                d = re.compile('^A[ ]*L[ ]*I[ ]*\'.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
             
@@ -163,7 +163,7 @@ class FinecoComune(BankAccountConfig):
         elif (ttype == "Giroconto"):
             
             # Giuseppe
-            d = re.compile('^Giroconto dal cc n. 3441990.*01[ -]*.*$')
+            d = re.compile('^Giroconto dal cc n. [0-9]{4}990.*01[ -]*.*$')
             g = d.match(line[5])
             if (g is not None): return "Entrate:Giuseppe"
             
@@ -175,7 +175,7 @@ class FinecoComune(BankAccountConfig):
             if (g is not None): return "Uscite:Servizi:Internet"
             
             # Enel
-            d = re.compile('E[ ]*L[ ]*E[ ]*T[ ]*T[ ]*R[ ]*I[ ]*C[ ]*O[ ]*')
+            d = re.compile('^.*E[ ]*L[ ]*E[ ]*T[ ]*T[ ]*R[ ]*I[ ]*C[ ]*O.*$')
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Elettricità"
             
