@@ -195,3 +195,29 @@ class TestFinecoPOS(unittest.TestCase):
         self.assertEqual(account_config.get_memo(line), memo)
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
+
+class TestFinecoRicarica(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """16/06/2017,16/06/2017,,"20",Ricarica telefonica,Ricarica telefonica: 3488727259 Data: 16 /06/17 Ora: 18:08"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 6, 16)
+        description = "Ricarica telefonica"
+        memo = "Ricarica telefonica - Ricarica telefonica: 3488727259 Data: 16 /06/17 Ora: 18:08"
+        debit = 20
+        credit = 0
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+
+

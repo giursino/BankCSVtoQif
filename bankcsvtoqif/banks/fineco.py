@@ -76,7 +76,7 @@ class Fineco(BankAccountConfig):
             description = "Bancomat"
             
         elif (ttype == "Ricarica telefonica"):
-            description = "Vodafone"
+            description = "Ricarica telefonica"
             
         elif (ttype == "Stipendio"):
             description = "Vimar"
