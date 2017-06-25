@@ -160,6 +160,11 @@ class FinecoComune(BankAccountConfig):
             g = d.match(line[5])
             if (g is not None): return "Entrate:Giulia"
             
+            # GSE
+            d = re.compile('Ord\: GSE S.P.A. Ben\:')
+            g = d.match(line[5])
+            if (g is not None): return "Uscite:Servizi:Elettricità"
+                        
         elif (ttype == "Giroconto"):
             
             # Giuseppe

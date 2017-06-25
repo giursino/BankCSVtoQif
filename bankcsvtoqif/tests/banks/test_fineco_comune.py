@@ -560,3 +560,31 @@ class TestFinecoLuce(unittest.TestCase):
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
+
+
+class TestFinecoGSE(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017","22/06/2017","1","","Bonifico SEPA Italia","Ord: GSE S.P.A. Ben: FAVARETTO GIULIA Dt -ord: 22/06/2017 Banca Ord: xxx" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 6, 22)
+        description = "GSE S.P.A."
+        memo = "Bonifico SEPA Italia - Ord: GSE S.P.A. Ben: FAVARETTO GIULIA Dt -ord: 22/06/2017 Banca Ord: xxx"
+        debit = 0
+        credit = 1
+        target_account = 'Uscite:Servizi:Elettricità'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
