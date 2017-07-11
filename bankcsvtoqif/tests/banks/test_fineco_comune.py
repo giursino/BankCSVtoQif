@@ -353,6 +353,32 @@ class TestFinecoIpercoop(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoIpercoop2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "03/05/2017","02/05/2017","","67.13","Pagobancomat POS","Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA   VIA REGIA 86   VIGON ZA   35010        ITA Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 5, 2)
+        description = "IPERCOOP VIGONZA"
+        memo = "Pagobancomat POS - Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA VIA REGIA 86 VIGON ZA 35010 ITA Carta N\xc2\xb0 *****313 Nessuna Commissione"
+        debit = 67.13
+        credit = 0
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+        
 class TestFinecoBrico(unittest.TestCase):
 
     def setUp(self):

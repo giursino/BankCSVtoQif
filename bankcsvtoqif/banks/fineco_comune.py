@@ -49,16 +49,24 @@ class FinecoComune(BankAccountConfig):
             g = d.match(line[5])
             if (g is not None) and (g.group(1)): description = g.group(1)
             
+            # Rinomino in modo comprensibile: IperCoop
+            d = re.compile('^NEG 0344.*$')
+            g = d.match(description)
+            if (g is not None): description = "IPERCOOP VIGONZA"
+            
+            
         elif (ttype == "Pagamenti Visa Debit"):
             d = re.compile('^(.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
+            
             
         elif (ttype == "Bonifico SEPA Italia"):
             d = re.compile('^Ben\: (.*) Ins\:.*$|^Ord\: (.*) Ben\:.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
             if (g is not None) and g.group(2): description = g.group(2)
+            
             
         elif (ttype == "FastPay"):
             description = "Autostrada"
@@ -82,8 +90,10 @@ class FinecoComune(BankAccountConfig):
             d = re.compile('^(.*) A[ ]*d[ ]*d[ ]*e[ ]*b[ ]*i[ ]*t[ ]*o[ ]* S[ ]*D[ ]*D[ ]*.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
-            # Rinomino in modo comprensibile ETRA
+            
+            # Rinomino in modo comprensibile: ETRA
             if (description == "ENERGIA TERRITORIO RISOR"): description = "ETRA"
+        
         
         elif (ttype == "Giroconto"):
             d = re.compile('^Giroconto (dal|sul) cc n. [0-9]{4}990.*01[ -]*.*$')
