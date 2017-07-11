@@ -82,6 +82,8 @@ class FinecoComune(BankAccountConfig):
             d = re.compile('^(.*) A[ ]*d[ ]*d[ ]*e[ ]*b[ ]*i[ ]*t[ ]*o[ ]* S[ ]*D[ ]*D[ ]*.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
+            # Rinomino in modo comprensibile ETRA
+            if (description == "ENERGIA TERRITORIO RISOR"): description = "ETRA"
         
         elif (ttype == "Giroconto"):
             d = re.compile('^Giroconto (dal|sul) cc n. [0-9]{4}990.*01[ -]*.*$')
@@ -184,5 +186,9 @@ class FinecoComune(BankAccountConfig):
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Elettricità"
             
-                
+            # Acqua
+            d = re.compile('^.*E[ ]*N[ ]*E[ ]*R[ ]*G[ ]*I[ ]*A[ ]*T[ ]*E[ ]*R[ ]*R[ ]*I[ ]*T[ ]*O[ ]*R[ ]*I[ ]*O.*$')
+            g = d.match(line[5])
+            if (g is not None): return "Uscite:Servizi:Acqua"
+                            
         return target

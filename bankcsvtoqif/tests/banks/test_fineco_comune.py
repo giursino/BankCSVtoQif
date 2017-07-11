@@ -588,3 +588,29 @@ class TestFinecoGSE(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+
+class TestFinecoETRA(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017","22/06/2017","1","","Sepa Direct Debit","ENERGIA TERRITORIO RISOR Addebito SDD fa ttura a Vs carico da xxx Mand xxx xxx Per XX" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 6, 22)
+        description = "ETRA"
+        memo = "Sepa Direct Debit - ENERGIA TERRITORIO RISOR Addebito SDD fa ttura a Vs carico da xxx Mand xxx xxx Per XX"
+        debit = 0
+        credit = 1
+        target_account = 'Uscite:Servizi:Acqua'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
