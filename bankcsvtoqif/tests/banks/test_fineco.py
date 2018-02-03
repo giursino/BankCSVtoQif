@@ -491,7 +491,7 @@ class TestFinecoImpostaBolloTitoli(unittest.TestCase):
 class TestFinecoSEPADirectDebitPaypal(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016,07/08/2016,,"10.1",SEPA Direct Debit,PayPal (Europe) S.a.r.l. et Cie., S.C.A. Addebito SDD fattura a Vs carico da *** Mand *** Per ***"""
+        self.csv = """07/09/2016,07/08/2016,,"10.1",SEPA Direct Debit,PayPal (Europe) S.a.r.l. et Cie. S.C.A. Addebito SDD fattura a Vs carico da *** Mand *** Per ***"""
         
 
     def test_can_instantiate(self):
@@ -502,8 +502,9 @@ class TestFinecoSEPADirectDebitPaypal(unittest.TestCase):
         account_config = Fineco()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 8, 7)
-        description = "<COMPLETARE>"
-        memo = "SEPA Direct Debit - PayPal (Europe) S.a.r.l. et Cie."
+        description = "PayPal (Europe) S.a.r.l. et Cie. S.C.A."
+        memo = "SEPA Direct Debit - PayPal (Europe) S.a.r.l. et Cie. S.C.A. Addebito SDD fattura a Vs carico da *** Mand *** Per ***"
+        target_account = 'Attività:Attività correnti:Conto corrente:Paypal'
         debit = 10.1
         credit = 0
         self.assertEqual(account_config.get_date(line), date)
@@ -511,6 +512,7 @@ class TestFinecoSEPADirectDebitPaypal(unittest.TestCase):
         self.assertEqual(account_config.get_memo(line), memo)
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
 
 class TestFinecoSEPADirectDebitNormal(unittest.TestCase):
 

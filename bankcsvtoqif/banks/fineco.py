@@ -148,6 +148,11 @@ class Fineco(BankAccountConfig):
                 d = re.compile('.*F[ ]*A[ ]*R[ ]*M[ ]*A[ ]*C[ ]*I[ ]*A.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Sanità:Farmaci"
+             
+                # PAYPAL
+                d = re.compile('.*P[ ]*a[ ]*y[ ]*P[ ]*a[ ]*l.*$');
+                g = d.match(description);
+                if (g is not None): return "Attività:Attività correnti:Conto corrente:Paypal"
             
         elif (ttype == "Bonifico SEPA Italia"):
             # FASI
