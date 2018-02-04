@@ -44,7 +44,7 @@ class FinecoComune(BankAccountConfig):
         ttype = line[4]
         description = "<COMPLETARE>"
         
-        if (ttype == "Pagobancomat POS"):
+        if (ttype == "PagoBancomat POS"):
             d = re.compile('^Pag.*presso\: (.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
             g = d.match(line[5])
             if (g is not None) and (g.group(1)): description = g.group(1)
@@ -55,7 +55,7 @@ class FinecoComune(BankAccountConfig):
             if (g is not None): description = "IPERCOOP VIGONZA"
             
             
-        elif (ttype == "Pagamenti Visa Debit"):
+        elif (ttype == "Pagamento Visa Debit"):
             d = re.compile('^(.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
@@ -71,22 +71,25 @@ class FinecoComune(BankAccountConfig):
         elif (ttype == "FastPay"):
             description = "Autostrada"
             
-        elif (ttype == "Imposta di bollo deposito titoli"):
+        elif (ttype == "Imposta bollo dossier titoli"):
             description = "Fineco"
             
-        elif (ttype == "Imposta di Bollo su c/c"):
+        elif (ttype == "Imposta bollo conto corrente"):
             description = "Fineco"
             
         elif (ttype == "MaxiPrelievo Banche del Gruppo"):
             description = "Prelievo"
             
+        elif (ttype == "Maxiprelievo"):
+            description = "Prelievo"
+                        
         elif (ttype == "Prelievi Bancomat extra Gruppo"):
             description = "Prelievo"
             
         elif (ttype == "Ricarica telefonica"):
             description = "Ricarica telefonica"
             
-        elif (ttype == "Sepa Direct Debit"):
+        elif (ttype == "SEPA Direct Debit"):
             d = re.compile('^(.*) A[ ]*d[ ]*d[ ]*e[ ]*b[ ]*i[ ]*t[ ]*o[ ]* S[ ]*D[ ]*D[ ]*.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
@@ -119,19 +122,22 @@ class FinecoComune(BankAccountConfig):
         if (ttype == "FastPay"):
             target = "Uscite:Trasporti"
             
-        elif (ttype == "Imposta di bollo deposito titoli"):
+        elif (ttype == "Imposta bollo dossier titoli"):
             target = "Uscite:Servizi:Banca"
             
-        elif (ttype == "Imposta di Bollo su c/c"):
+        elif (ttype == "Imposta bollo conto corrente"):
             target = "Uscite:Servizi:Banca"
             
         elif (ttype == "MaxiPrelievo Banche del Gruppo"):
             target = "Attività:Attività correnti:Liquidità"
             
+        elif (ttype == "Maxiprelievo"):
+            target = "Attività:Attività correnti:Liquidità"
+                        
         elif (ttype == "Prelievi Bancomat extra Gruppo"):
             target = "Attività:Attività correnti:Liquidità"
             
-        elif (ttype == "Pagobancomat POS") or (ttype == "Pagamenti Visa Debit"):
+        elif (ttype == "PagoBancomat POS") or (ttype == "Pagamento Visa Debit"):
             description = self.get_description(line)
             if (description != "<COMPLETARE>"):
                 
@@ -184,7 +190,7 @@ class FinecoComune(BankAccountConfig):
             g = d.match(line[5])
             if (g is not None): return "Entrate:Giuseppe"
             
-        elif (ttype == "Sepa Direct Debit"):
+        elif (ttype == "SEPA Direct Debit"):
             
             # Internet
             d = re.compile('W[ ]*i[ ]*n[ ]*d[ ]*-[ ]*T[ ]*r[ ]*e[ ]*')

@@ -127,7 +127,7 @@ class TestFinecoBonificoIn(unittest.TestCase):
 class TestFinecoVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """22/06/2016,18/06/2016,,"13.53",Pagamenti Visa Debit,REPSOL DISTRIBUTORE    VIGONZA       IT Carta N. *****513 Data operazione 18/06/2016"""
+        self.csv = """22/06/2016,18/06/2016,,"13.53",Pagamento Visa Debit,REPSOL DISTRIBUTORE    VIGONZA       IT Carta N. *****513 Data operazione 18/06/2016"""
 
     def test_can_instantiate(self):
         account_config = FinecoComune()
@@ -138,7 +138,7 @@ class TestFinecoVisa(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 6, 18)
         description = 'REPSOL DISTRIBUTORE VIGONZA IT'
-        memo = 'Pagamenti Visa Debit - REPSOL DISTRIBUTORE VIGONZA IT Carta N. *****513 Data operazione 18/06/2016'
+        memo = 'Pagamento Visa Debit - REPSOL DISTRIBUTORE VIGONZA IT Carta N. *****513 Data operazione 18/06/2016'
         debit = 13.53
         credit = 0
         self.assertEqual(account_config.get_date(line), date)
@@ -151,7 +151,7 @@ class TestFinecoVisa(unittest.TestCase):
 class TestFinecoPOSError(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"""
+        self.csv = """07/09/2016,07/08/2016,,"10.1",PagoBancomat POS,Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -163,7 +163,7 @@ class TestFinecoPOSError(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 8, 7)
         description = "SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA"
-        memo = "Pagobancomat POS - Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"
+        memo = "PagoBancomat POS - Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"
         debit = 10.1
         credit = 0
         self.assertEqual(account_config.get_date(line), date)
@@ -176,7 +176,7 @@ class TestFinecoPOSError(unittest.TestCase):
 class TestFinecoPOS(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "24/06/2017","23/06/2017","","32.5","Pagobancomat POS","Pag. del 23/06/17 ora 21:06 presso: ERME S SNC DI RUZZA LUCA & C.   VIA DANTE ALI GHIERI,   VIGONOVO   30030     VE IT Car ta N° *****313 Nessuna Commissione" """
+        self.csv = """ "24/06/2017","23/06/2017","","32.5","PagoBancomat POS","Pag. del 23/06/17 ora 21:06 presso: ERME S SNC DI RUZZA LUCA & C.   VIA DANTE ALI GHIERI,   VIGONOVO   30030     VE IT Car ta N° *****313 Nessuna Commissione" """
 
 
     def test_can_instantiate(self):
@@ -188,7 +188,7 @@ class TestFinecoPOS(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 6, 23)
         description = "ERME S SNC DI RUZZA LUCA & C. VIA DANTE ALI GHIERI, VIGONOVO 30030 VE IT"
-        memo = "Pagobancomat POS - Pag. del 23/06/17 ora 21:06 presso: ERME S SNC DI RUZZA LUCA & C. VIA DANTE ALI GHIERI, VIGONOVO 30030 VE IT Car ta N° *****313 Nessuna Commissione"
+        memo = "PagoBancomat POS - Pag. del 23/06/17 ora 21:06 presso: ERME S SNC DI RUZZA LUCA & C. VIA DANTE ALI GHIERI, VIGONOVO 30030 VE IT Car ta N° *****313 Nessuna Commissione"
         debit = 32.5
         credit = 0
         self.assertEqual(account_config.get_date(line), date)
@@ -226,7 +226,7 @@ class TestFinecoRicarica(unittest.TestCase):
 class TestFinecoAutostradaVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagamenti Visa Debit,AUTOST GRISIGNANO/PADO OVEST         IT Carta N. ***** 513 Data operazione 08/06/17"""
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagamento Visa Debit,AUTOST GRISIGNANO/PADO OVEST         IT Carta N. ***** 513 Data operazione 08/06/17"""
         
 
     def test_can_instantiate(self):
@@ -238,7 +238,7 @@ class TestFinecoAutostradaVisa(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 8, 7)
         description = "AUTOST GRISIGNANO/PADO OVEST IT"
-        memo = "Pagamenti Visa Debit - AUTOST GRISIGNANO/PADO OVEST IT Carta N. ***** 513 Data operazione 08/06/17"
+        memo = "Pagamento Visa Debit - AUTOST GRISIGNANO/PADO OVEST IT Carta N. ***** 513 Data operazione 08/06/17"
         debit = 10.1
         credit = 0
         target_account = 'Uscite:Trasporti'
@@ -252,7 +252,7 @@ class TestFinecoAutostradaVisa(unittest.TestCase):
 class TestFinecoAutostradaPos(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagobancomat POS,Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"""
+        self.csv = """07/09/2016,07/08/2016,,"10.1",PagoBancomat POS,Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -264,7 +264,7 @@ class TestFinecoAutostradaPos(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 8, 7)
         description = "AUT OST GRISIGNANO/PADO OVEST IT"
-        memo = "Pagobancomat POS - Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"
+        memo = "PagoBancomat POS - Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"
         debit = 10.1
         credit = 0
         target_account = 'Uscite:Trasporti'
@@ -278,7 +278,7 @@ class TestFinecoAutostradaPos(unittest.TestCase):
 class TestFinecoAliVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "16/06/2017","14/06/2017","","5.71","Pagamenti Visa Debit","ALI'                   NOVENTA PADOV IT Carta N. ***** 134 Data operazione 14/06/17" """
+        self.csv = """ "16/06/2017","14/06/2017","","5.71","Pagamento Visa Debit","ALI'                   NOVENTA PADOV IT Carta N. ***** 134 Data operazione 14/06/17" """
         
 
     def test_can_instantiate(self):
@@ -290,7 +290,7 @@ class TestFinecoAliVisa(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 6, 14)
         description = "ALI' NOVENTA PADOV IT"
-        memo = "Pagamenti Visa Debit - ALI' NOVENTA PADOV IT Carta N. ***** 134 Data operazione 14/06/17"
+        memo = "Pagamento Visa Debit - ALI' NOVENTA PADOV IT Carta N. ***** 134 Data operazione 14/06/17"
         debit = 5.71
         credit = 0
         target_account = 'Uscite:Alimentari'
@@ -304,7 +304,7 @@ class TestFinecoAliVisa(unittest.TestCase):
 class TestFinecoAliPos(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "06/05/2017","05/05/2017","","5.87","Pagobancomat POS","Pag. del 05/05/17 ora 12:48 presso: ALI' -NOVENTA PADOVANA   VIA G.MARCONI 9   NO VENTA PADOV   35027     NF ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """ "06/05/2017","05/05/2017","","5.87","PagoBancomat POS","Pag. del 05/05/17 ora 12:48 presso: ALI' -NOVENTA PADOVANA   VIA G.MARCONI 9   NO VENTA PADOV   35027     NF ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -316,7 +316,7 @@ class TestFinecoAliPos(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 5, 5)
         description = "ALI' -NOVENTA PADOVANA VIA G.MARCONI 9 NO VENTA PADOV 35027 NF ITA"
-        memo = "Pagobancomat POS - Pag. del 05/05/17 ora 12:48 presso: ALI' -NOVENTA PADOVANA VIA G.MARCONI 9 NO VENTA PADOV 35027 NF ITA Carta N° *****313 Nessuna Commissione"
+        memo = "PagoBancomat POS - Pag. del 05/05/17 ora 12:48 presso: ALI' -NOVENTA PADOVANA VIA G.MARCONI 9 NO VENTA PADOV 35027 NF ITA Carta N° *****313 Nessuna Commissione"
         debit = 5.87
         credit = 0
         target_account = 'Uscite:Alimentari'
@@ -330,7 +330,7 @@ class TestFinecoAliPos(unittest.TestCase):
 class TestFinecoIpercoop(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "03/05/2017","02/05/2017","","67.13","Pagobancomat POS","Pag. del 02/05/17 ora 20:00 presso: IPER COOP VIGONZA 344   V REGIA 86-BUSA   VIG ONZA   35010        ITA Carta N° *****31 3 Nessuna Commissione" """
+        self.csv = """ "03/05/2017","02/05/2017","","67.13","PagoBancomat POS","Pag. del 02/05/17 ora 20:00 presso: IPER COOP VIGONZA 344   V REGIA 86-BUSA   VIG ONZA   35010        ITA Carta N° *****31 3 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -342,7 +342,7 @@ class TestFinecoIpercoop(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 5, 2)
         description = "IPER COOP VIGONZA 344 V REGIA 86-BUSA VIG ONZA 35010 ITA"
-        memo = "Pagobancomat POS - Pag. del 02/05/17 ora 20:00 presso: IPER COOP VIGONZA 344 V REGIA 86-BUSA VIG ONZA 35010 ITA Carta N\xc2\xb0 *****31 3 Nessuna Commissione"
+        memo = "PagoBancomat POS - Pag. del 02/05/17 ora 20:00 presso: IPER COOP VIGONZA 344 V REGIA 86-BUSA VIG ONZA 35010 ITA Carta N\xc2\xb0 *****31 3 Nessuna Commissione"
         debit = 67.13
         credit = 0
         target_account = 'Uscite:Alimentari'
@@ -356,7 +356,7 @@ class TestFinecoIpercoop(unittest.TestCase):
 class TestFinecoIpercoop2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "03/05/2017","02/05/2017","","67.13","Pagobancomat POS","Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA   VIA REGIA 86   VIGON ZA   35010        ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """ "03/05/2017","02/05/2017","","67.13","PagoBancomat POS","Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA   VIA REGIA 86   VIGON ZA   35010        ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -368,7 +368,7 @@ class TestFinecoIpercoop2(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 5, 2)
         description = "IPERCOOP VIGONZA"
-        memo = "Pagobancomat POS - Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA VIA REGIA 86 VIGON ZA 35010 ITA Carta N\xc2\xb0 *****313 Nessuna Commissione"
+        memo = "PagoBancomat POS - Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA VIA REGIA 86 VIGON ZA 35010 ITA Carta N\xc2\xb0 *****313 Nessuna Commissione"
         debit = 67.13
         credit = 0
         target_account = 'Uscite:Alimentari'
@@ -382,7 +382,7 @@ class TestFinecoIpercoop2(unittest.TestCase):
 class TestFinecoBrico(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "27/02/2017","26/02/2017","","18.2","Pagobancomat POS","Pag. del 26/02/17 ora 15:06 presso: BRICOCENTER PADOVA B1200   VIA VENEZIA 5 3/A   PADOVA   35128        ITA Carta N° *****313 Nessuna commissione" """
+        self.csv = """ "27/02/2017","26/02/2017","","18.2","PagoBancomat POS","Pag. del 26/02/17 ora 15:06 presso: BRICOCENTER PADOVA B1200   VIA VENEZIA 5 3/A   PADOVA   35128        ITA Carta N° *****313 Nessuna commissione" """
         
 
     def test_can_instantiate(self):
@@ -394,7 +394,7 @@ class TestFinecoBrico(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 2, 26)
         description = "BRICOCENTER PADOVA B1200 VIA VENEZIA 5 3/A PADOVA 35128 ITA"
-        memo = "Pagobancomat POS - Pag. del 26/02/17 ora 15:06 presso: BRICOCENTER PADOVA B1200 VIA VENEZIA 5 3/A PADOVA 35128 ITA Carta N\xc2\xb0 *****313 Nessuna commissione"
+        memo = "PagoBancomat POS - Pag. del 26/02/17 ora 15:06 presso: BRICOCENTER PADOVA B1200 VIA VENEZIA 5 3/A PADOVA 35128 ITA Carta N\xc2\xb0 *****313 Nessuna commissione"
         debit = 18.2
         credit = 0
         target_account = 'Uscite:Ferramenta'
@@ -408,7 +408,7 @@ class TestFinecoBrico(unittest.TestCase):
 class TestFinecoLeroy(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "06/03/2017","05/03/2017","","6.05","Pagobancomat POS","Pag. del 05/03/17 ora 17:29 presso: LEROY MERLIN ITALIA VICE   CC LE PIRAMID I VIA   TORRI DI QUARTESOL   36040 ITA Carta N° *****313 Nessuna commissione" """
+        self.csv = """ "06/03/2017","05/03/2017","","6.05","PagoBancomat POS","Pag. del 05/03/17 ora 17:29 presso: LEROY MERLIN ITALIA VICE   CC LE PIRAMID I VIA   TORRI DI QUARTESOL   36040 ITA Carta N° *****313 Nessuna commissione" """
         
 
     def test_can_instantiate(self):
@@ -420,7 +420,7 @@ class TestFinecoLeroy(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 3, 5)
         description = "LEROY MERLIN ITALIA VICE CC LE PIRAMID I VIA TORRI DI QUARTESOL 36040 ITA"
-        memo = "Pagobancomat POS - Pag. del 05/03/17 ora 17:29 presso: LEROY MERLIN ITALIA VICE CC LE PIRAMID I VIA TORRI DI QUARTESOL 36040 ITA Carta N\xc2\xb0 *****313 Nessuna commissione"
+        memo = "PagoBancomat POS - Pag. del 05/03/17 ora 17:29 presso: LEROY MERLIN ITALIA VICE CC LE PIRAMID I VIA TORRI DI QUARTESOL 36040 ITA Carta N\xc2\xb0 *****313 Nessuna commissione"
         debit = 6.05
         credit = 0
         target_account = 'Uscite:Ferramenta'
@@ -434,7 +434,7 @@ class TestFinecoLeroy(unittest.TestCase):
 class TestFinecoTigota(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "21/02/2017","20/02/2017","","25.9","Pagobancomat POS","Pag. del 20/02/17 ora 13:31 presso: TIGOTA   VIA VENEZIA 124   PADOVA   3512 9        ITA Carta N° *****314 Nessuna commissione" """
+        self.csv = """ "21/02/2017","20/02/2017","","25.9","PagoBancomat POS","Pag. del 20/02/17 ora 13:31 presso: TIGOTA   VIA VENEZIA 124   PADOVA   3512 9        ITA Carta N° *****314 Nessuna commissione" """
         
 
     def test_can_instantiate(self):
@@ -446,7 +446,7 @@ class TestFinecoTigota(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 2, 20)
         description = "TIGOTA VIA VENEZIA 124 PADOVA 3512 9 ITA"
-        memo = "Pagobancomat POS - Pag. del 20/02/17 ora 13:31 presso: TIGOTA VIA VENEZIA 124 PADOVA 3512 9 ITA Carta N\xc2\xb0 *****314 Nessuna commissione"
+        memo = "PagoBancomat POS - Pag. del 20/02/17 ora 13:31 presso: TIGOTA VIA VENEZIA 124 PADOVA 3512 9 ITA Carta N\xc2\xb0 *****314 Nessuna commissione"
         debit = 25.9
         credit = 0
         target_account = 'Uscite:Casalinghi'
@@ -538,7 +538,7 @@ class TestFinecoGiuseppeErr(unittest.TestCase):
 class TestFinecoInternet(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "19/05/2017","19/05/2017","","4.9","Sepa Direct Debit","Wind-Tre Addebito SDD fattura a Vs caric o da xxx Mand xxx xxx Per xxx xxx xxx xxx xxx xxx" """
+        self.csv = """ "19/05/2017","19/05/2017","","4.9","SEPA Direct Debit","Wind-Tre Addebito SDD fattura a Vs caric o da xxx Mand xxx xxx Per xxx xxx xxx xxx xxx xxx" """
         
 
     def test_can_instantiate(self):
@@ -550,7 +550,7 @@ class TestFinecoInternet(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 5, 19)
         description = "Wind-Tre"
-        memo = "Sepa Direct Debit - Wind-Tre Addebito SDD fattura a Vs caric o da xxx Mand xxx xxx Per xxx xxx xxx xxx xxx xxx"
+        memo = "SEPA Direct Debit - Wind-Tre Addebito SDD fattura a Vs caric o da xxx Mand xxx xxx Per xxx xxx xxx xxx xxx xxx"
         debit = 4.9
         credit = 0
         target_account = 'Uscite:Servizi:Internet'
@@ -564,7 +564,7 @@ class TestFinecoInternet(unittest.TestCase):
 class TestFinecoLuce(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "28/03/2017","28/03/2017","","2","Sepa Direct Debit","SERVIZIO ELETTRICO NAZIONALE Addebito SD D fattura a Vs carico da xxx" """
+        self.csv = """ "28/03/2017","28/03/2017","","2","SEPA Direct Debit","SERVIZIO ELETTRICO NAZIONALE Addebito SD D fattura a Vs carico da xxx" """
         
 
     def test_can_instantiate(self):
@@ -576,7 +576,7 @@ class TestFinecoLuce(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 3, 28)
         description = "SERVIZIO ELETTRICO NAZIONALE"
-        memo = "Sepa Direct Debit - SERVIZIO ELETTRICO NAZIONALE Addebito SD D fattura a Vs carico da xxx"
+        memo = "SEPA Direct Debit - SERVIZIO ELETTRICO NAZIONALE Addebito SD D fattura a Vs carico da xxx"
         debit = 2
         credit = 0
         target_account = 'Uscite:Servizi:Elettricità'
@@ -618,7 +618,7 @@ class TestFinecoGSE(unittest.TestCase):
 class TestFinecoETRA(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017","22/06/2017","1","","Sepa Direct Debit","ENERGIA TERRITORIO RISOR Addebito SDD fa ttura a Vs carico da xxx Mand xxx xxx Per XX" """
+        self.csv = """ "22/06/2017","22/06/2017","1","","SEPA Direct Debit","ENERGIA TERRITORIO RISOR Addebito SDD fa ttura a Vs carico da xxx Mand xxx xxx Per XX" """
         
 
     def test_can_instantiate(self):
@@ -630,7 +630,7 @@ class TestFinecoETRA(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 6, 22)
         description = "ETRA"
-        memo = "Sepa Direct Debit - ENERGIA TERRITORIO RISOR Addebito SDD fa ttura a Vs carico da xxx Mand xxx xxx Per XX"
+        memo = "SEPA Direct Debit - ENERGIA TERRITORIO RISOR Addebito SDD fa ttura a Vs carico da xxx Mand xxx xxx Per XX"
         debit = 0
         credit = 1
         target_account = 'Uscite:Servizi:Acqua'
