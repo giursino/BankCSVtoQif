@@ -56,16 +56,16 @@ class FinecoComune(BankAccountConfig):
             
             
         elif (ttype == "Pagamento Visa Debit"):
-            d = re.compile('^(.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
+            d = re.compile('^(.*)C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
             
             
         elif (ttype == "Bonifico SEPA Italia"):
-            d = re.compile('^Ben\: (.*) Ins\:.*$|^Ord\: (.*) Ben\:.*$')
+            d = re.compile('^Ben\: (.*) Ins\:.* Cau\: (.*)$|^Ord\: (.*) Ben\:.* Info-Cli\: (.*)$')
             g = d.match(line[5])
-            if (g is not None) and g.group(1): description = g.group(1)
-            if (g is not None) and g.group(2): description = g.group(2)
+            if (g is not None) and g.group(1) and g.group(2): description = g.group(1) + " - " + g.group(2)
+            if (g is not None) and g.group(3) and g.group(4): description = g.group(3) + " - " + g.group(4)
             
             
         elif (ttype == "FastPay"):
@@ -99,9 +99,11 @@ class FinecoComune(BankAccountConfig):
         
         
         elif (ttype == "Giroconto"):
-            d = re.compile('^Giroconto (dal|sul) cc n. [0-9]{4}990.*01[ -]*.*$')
+            d = re.compile('^Giroconto (dal|sul) cc n. [0-9]*([0-9]{3}).*01[ -]*(.*)$')
             g = d.match(line[5])
-            if (g is not None): description = "Giuseppe"
+            if (g is not None) and g.group(2) and g.group(3):
+				if g.group(2) == "990": description = "Giuseppe" + " - " + g.group(3)
+				else: description = g.group(3)
                         
         return ' '.join(description.split())
         
@@ -186,9 +188,10 @@ class FinecoComune(BankAccountConfig):
         elif (ttype == "Giroconto"):
             
             # Giuseppe
-            d = re.compile('^Giroconto dal cc n. [0-9]{4}990.*01[ -]*.*$')
+            d = re.compile('^Giroconto (dal|sul) cc n. [0-9]*([0-9]{3}).*01[ -]*(.*)$')
             g = d.match(line[5])
-            if (g is not None): return "Entrate:Giuseppe"
+            if (g is not None) and g.group(2) and g.group(3) and g.group(2) == "990":
+				if  "TRASFERIMENTO" in g.group(3): return "Entrate:Giuseppe"
             
         elif (ttype == "SEPA Direct Debit"):
             

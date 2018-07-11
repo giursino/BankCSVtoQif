@@ -89,7 +89,7 @@ class TestFinecoBonificoOut(unittest.TestCase):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 8, 1)
-        description = 'GIULIA XXX'
+        description = 'GIULIA XXX - Saldo cene'
         memo = 'Bonifico SEPA Italia - Ben: GIULIA XXX Ins: 30/07/2016 11 :42 Da: INTERNET Iban 444444 1111 TransID: 33333 1111 Cau: Saldo cene'
         debit = 38
         credit = 0
@@ -113,7 +113,7 @@ class TestFinecoBonificoIn(unittest.TestCase):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 6, 10)
-        description = 'Ascell'
+        description = 'Ascell - RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016'
         memo = 'Bonifico SEPA Italia - Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016'
         debit = 0
         credit = 39.3
@@ -127,7 +127,7 @@ class TestFinecoBonificoIn(unittest.TestCase):
 class TestFinecoVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """22/06/2016,18/06/2016,,"13.53",Pagamento Visa Debit,REPSOL DISTRIBUTORE    VIGONZA       IT Carta N. *****513 Data operazione 18/06/2016"""
+        self.csv = """22/06/2016,18/06/2016,,"13.53",Pagamento Visa Debit,REPSOL DISTRIBUTORE    VIGONZA       ITCarta N. *****513Data operazione 18/06/2016"""
 
     def test_can_instantiate(self):
         account_config = FinecoComune()
@@ -138,7 +138,7 @@ class TestFinecoVisa(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 6, 18)
         description = 'REPSOL DISTRIBUTORE VIGONZA IT'
-        memo = 'Pagamento Visa Debit - REPSOL DISTRIBUTORE VIGONZA IT Carta N. *****513 Data operazione 18/06/2016'
+        memo = 'Pagamento Visa Debit - REPSOL DISTRIBUTORE VIGONZA ITCarta N. *****513Data operazione 18/06/2016'
         debit = 13.53
         credit = 0
         self.assertEqual(account_config.get_date(line), date)
@@ -226,7 +226,7 @@ class TestFinecoRicarica(unittest.TestCase):
 class TestFinecoAutostradaVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagamento Visa Debit,AUTOST GRISIGNANO/PADO OVEST         IT Carta N. ***** 513 Data operazione 08/06/17"""
+        self.csv = """07/09/2016,07/08/2016,,"10.1",Pagamento Visa Debit,AUTOST GRISIGNANO/PADO OVEST         ITCarta N. ***** 513Data operazione 08/06/17"""
         
 
     def test_can_instantiate(self):
@@ -238,7 +238,7 @@ class TestFinecoAutostradaVisa(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 8, 7)
         description = "AUTOST GRISIGNANO/PADO OVEST IT"
-        memo = "Pagamento Visa Debit - AUTOST GRISIGNANO/PADO OVEST IT Carta N. ***** 513 Data operazione 08/06/17"
+        memo = "Pagamento Visa Debit - AUTOST GRISIGNANO/PADO OVEST ITCarta N. ***** 513Data operazione 08/06/17"
         debit = 10.1
         credit = 0
         target_account = 'Uscite:Trasporti'
@@ -278,7 +278,7 @@ class TestFinecoAutostradaPos(unittest.TestCase):
 class TestFinecoAliVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "16/06/2017","14/06/2017","","5.71","Pagamento Visa Debit","ALI'                   NOVENTA PADOV IT Carta N. ***** 134 Data operazione 14/06/17" """
+        self.csv = """ "16/06/2017","14/06/2017","","5.71","Pagamento Visa Debit","ALI'                   NOVENTA PADOV ITCarta N. ***** 134Data operazione 14/06/17" """
         
 
     def test_can_instantiate(self):
@@ -290,7 +290,7 @@ class TestFinecoAliVisa(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 6, 14)
         description = "ALI' NOVENTA PADOV IT"
-        memo = "Pagamento Visa Debit - ALI' NOVENTA PADOV IT Carta N. ***** 134 Data operazione 14/06/17"
+        memo = "Pagamento Visa Debit - ALI' NOVENTA PADOV ITCarta N. ***** 134Data operazione 14/06/17"
         debit = 5.71
         credit = 0
         target_account = 'Uscite:Alimentari'
@@ -471,7 +471,7 @@ class TestFinecoGiulia(unittest.TestCase):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 1, 3)
-        description = "FAVARETTO GIULIA"
+        description = "FAVARETTO GIULIA - giroconto su conto comune"
         memo = "Bonifico SEPA Italia - Ord: FAVARETTO GIULIA Ben: GIUSEP PE, GIULIA Dt-Reg: 03/01/2017 Banca Ord: XXX Info: NOTPROVIDED Info-Cli: giroconto su conto comune"
         debit = 0
         credit = 5
@@ -486,7 +486,7 @@ class TestFinecoGiulia(unittest.TestCase):
 class TestFinecoGiuseppe(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "18/12/2016","18/12/2016","5","","Giroconto","Giroconto dal cc n. 1234990/01-TRASFERIM ENTO" """
+        self.csv = """ "18/12/2016","18/12/2016","5","","Giroconto","Giroconto dal cc n. 1234990 / 01TRASFERIMENTO" """
         
 
     def test_can_instantiate(self):
@@ -497,8 +497,8 @@ class TestFinecoGiuseppe(unittest.TestCase):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 12, 18)
-        description = "Giuseppe"
-        memo = "Giroconto - Giroconto dal cc n. 1234990/01-TRASFERIM ENTO"
+        description = "Giuseppe - TRASFERIMENTO"
+        memo = "Giroconto - Giroconto dal cc n. 1234990 / 01TRASFERIMENTO"
         debit = 0
         credit = 5
         target_account = 'Entrate:Giuseppe'
@@ -512,7 +512,7 @@ class TestFinecoGiuseppe(unittest.TestCase):
 class TestFinecoGiuseppeErr(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "18/12/2016","18/12/2016","5","","Giroconto","Giroconto dal cc n. 991234990/01-TRASFERIM ENTO" """
+        self.csv = """ "18/12/2016","18/12/2016","5","","Giroconto","Giroconto dal cc n. 991234991 / 01PIZZE" """
         
 
     def test_can_instantiate(self):
@@ -523,8 +523,8 @@ class TestFinecoGiuseppeErr(unittest.TestCase):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 12, 18)
-        description = "<COMPLETARE>"
-        memo = "Giroconto - Giroconto dal cc n. 991234990/01-TRASFERIM ENTO"
+        description = "PIZZE"
+        memo = "Giroconto - Giroconto dal cc n. 991234991 / 01PIZZE"
         debit = 0
         credit = 5
         target_account = 'Sbilancio-EUR'
@@ -591,7 +591,7 @@ class TestFinecoLuce(unittest.TestCase):
 class TestFinecoGSE(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017","22/06/2017","1","","Bonifico SEPA Italia","Ord: GSE S.P.A. Ben: FAVARETTO GIULIA Dt -ord: 22/06/2017 Banca Ord: xxx" """
+        self.csv = """ "22/06/2017","22/06/2017","1","","Bonifico SEPA Italia","Ord: GSE S.P.A. Ben: FAVARETTO GIULIA Dt -ord: 22/06/2017 Banca Ord: xxx Info-Cli: FT: 2018087" """
         
 
     def test_can_instantiate(self):
@@ -602,8 +602,8 @@ class TestFinecoGSE(unittest.TestCase):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 6, 22)
-        description = "GSE S.P.A."
-        memo = "Bonifico SEPA Italia - Ord: GSE S.P.A. Ben: FAVARETTO GIULIA Dt -ord: 22/06/2017 Banca Ord: xxx"
+        description = "GSE S.P.A. - FT: 2018087"
+        memo = "Bonifico SEPA Italia - Ord: GSE S.P.A. Ben: FAVARETTO GIULIA Dt -ord: 22/06/2017 Banca Ord: xxx Info-Cli: FT: 2018087"
         debit = 0
         credit = 1
         target_account = 'Uscite:Servizi:Elettricità'
