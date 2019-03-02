@@ -238,11 +238,12 @@ class TestFinecoFasi(unittest.TestCase):
         account_config = Fineco()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2016, 6, 10)
-        description = 'FASI'
+        description = 'FASIOPEN (Rimborso del 21.04.2016)'
         memo = 'Bonifico SEPA Italia - Ord: FASI Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016'
         debit = 0
         credit = 39.3
-        target_account = 'Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria'
+        # Rimosso perchè con più persone può andare in passività o in attività
+        #target_account = 'Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria'
         self.assertEqual(account_config.get_date(line), date)
         self.assertEqual(account_config.get_description(line), description)
         self.assertEqual(account_config.get_memo(line), memo)

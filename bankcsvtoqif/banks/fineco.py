@@ -64,8 +64,23 @@ class Fineco(BankAccountConfig):
         elif (ttype == "Bonifico SEPA Italia"):
             d = re.compile('^Ben\: (.*) Ins\:.*$|^Ord\: (.*) Ben\:.*$')
             g = d.match(line[5])
-            if (g is not None) and g.group(1): description = g.group(1)
-            if (g is not None) and g.group(2): description = g.group(2)
+            if (g is not None):
+				
+				# Bonifico in uscita
+				if (g.group(1)): 
+					description = g.group(1)
+					
+				# Bonifico in entrata
+				elif (g.group(2)): 
+					
+					# FASIOPEN
+					if (g.group(2) == "FASI"):
+						fasi_descr = re.compile('.* Info-Cli\: .* ([0-9]{2}) ([0-9]{2}) ([0-9]{4})$');
+						fasi_date = fasi_descr.match(line[5]);
+						if (fasi_date is not None):	description = "FASIOPEN (Rimborso del " + fasi_date.group(1) + "." + fasi_date.group(2) + "." + fasi_date.group(3) + ")"
+						
+					else:
+						description = g.group(2)
             
         elif (ttype == "FastPay"):
             description = "Autostrada"
@@ -155,9 +170,12 @@ class Fineco(BankAccountConfig):
                 if (g is not None): return "Attività:Attività correnti:Conto corrente:Paypal"
             
         elif (ttype == "Bonifico SEPA Italia"):
-            # FASI
-            d = re.compile('Ord\: FASI Ben\:')
-            g = d.match(line[5])
-            if (g is not None): return "Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria"
+			description = self.get_description(line)
+			
+            # FASIOPEN
+            # Rimosso perchè con più persone può andare in passività o in attività
+            #d = re.compile('Ord\: FASI Ben\:')
+            #g = d.match(line[5])
+            #if (g is not None): return "Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria"
                 
         return target
