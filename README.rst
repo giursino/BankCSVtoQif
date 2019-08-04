@@ -134,4 +134,4 @@ To remove BankCSVtoQif uninstall the python library by deleting all its files. Y
 
     python setup.py install --record files.txt
     cat files.txt
-
+    xargs rm -rf < files.txt
