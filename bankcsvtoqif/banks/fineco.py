@@ -31,6 +31,8 @@ class Fineco(BankAccountConfig):
 
         self.delimiter = ';'
         self.quotechar = '"'
+        self.decimal_separator = ','
+        self.thousands_separator ='.'
         self.dropped_lines = 7
         self.default_source_account = 'Attività:Attività correnti:Conto corrente:Fineco C/C'
         self.default_target_account = 'Sbilancio-EUR'
