@@ -30,6 +30,8 @@ class DBGiro(BankAccountConfig):
 
         self.delimiter = ';'
         self.quotechar = '"'
+        self.decimal_separator = ','
+        self.thousands_separator ='.'
         self.dropped_lines = 5
         self.default_source_account = 'Assets:Current Assets:Checking Account'
         self.default_target_account = 'Imbalance-EUR'

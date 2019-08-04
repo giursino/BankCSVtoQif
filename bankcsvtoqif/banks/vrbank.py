@@ -25,6 +25,12 @@ from datetime import datetime
 class VRBank(BankAccountConfig):
     """ VR-Bank Girokonto """
 
+    def __init__(self):
+        BankAccountConfig.__init__(self)
+
+        self.decimal_separator = ','
+        self.thousands_separator ='.'
+
     def get_date(self, line):
         (day, month, year) = map(int, line[1].split('.'))
         return datetime(year, month, day)

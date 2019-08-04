@@ -43,6 +43,11 @@ Installation
     sudo apt-get install catdoc
     xls2csv excelfile.xls
 
+* Otherwise it is possibile to use Libreoffice headless::
+
+    sudo apt-get install libreoffice
+    libreoffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":59,34,,, excelfile.xls
+
 
 Example: Deutsche Bank Checking Account
 ---------------------------------------

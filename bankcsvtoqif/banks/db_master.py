@@ -29,6 +29,8 @@ class DBMaster(BankAccountConfig):
         BankAccountConfig.__init__(self)
         self.delimiter = ';'
         self.quotechar = '"'
+        self.decimal_separator = ','
+        self.thousands_separator ='.'
         self.dropped_lines = 5
         self.default_source_account = 'Liabilities:Deutsche Bank Master Card'
         self.default_target_account = 'Imbalance-EUR'

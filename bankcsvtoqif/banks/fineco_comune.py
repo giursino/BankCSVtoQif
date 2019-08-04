@@ -29,8 +29,10 @@ class FinecoComune(BankAccountConfig):
     def __init__(self):
         BankAccountConfig.__init__(self)
 
-        self.delimiter = ','
+        self.delimiter = ';'
         self.quotechar = '"'
+        self.decimal_separator = ','
+        self.thousands_separator ='.'
         self.dropped_lines = 7
         self.default_source_account = 'Attività:Attività correnti:Conto corrente'
         self.default_target_account = 'Sbilancio-EUR'
@@ -112,10 +114,10 @@ class FinecoComune(BankAccountConfig):
         return ' '.join(memo.split())
 
     def get_debit(self, line):
-        return float(line[3]) if line[3] else 0
+        return self.get_absolute_amount(line[3])
 
     def get_credit(self, line):
-        return float(line[2]) if line[2] else 0
+        return self.get_absolute_amount(line[2])
         
     def get_target_account(self, line):
         target = self.default_target_account

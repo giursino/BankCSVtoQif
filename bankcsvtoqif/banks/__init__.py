@@ -37,20 +37,22 @@ class BankAccountConfig(object):
         self.default_source_account = None
         self.default_target_account = None
         self.default_memo = None
+        self.decimal_separator = '.'
+        self.thousands_separator = ','
 
     def get_absolute_amount(self, amount):
-        amount = amount.strip('-')
-        amount = amount.strip(' ')
-        amount = amount.replace('.', '')
-        amount = amount.replace(',', '.')
+        amount = amount.replace('-', '')
+        amount = amount.replace(' ', '')
+        amount = amount.replace(self.thousands_separator, '')
+        amount = amount.replace(self.decimal_separator, '.')
         if not amount:
             return 0
         return float(amount)
 
     def get_amount(self, amount):
         amount = amount.replace(' ', '')
-        amount = amount.replace('.', '')
-        amount = amount.replace(',', '.')
+        amount = amount.replace(self.thousands_separator, '')
+        amount = amount.replace(self.decimal_separator, '.')
         if not amount:
             return 0
         return float(amount)
