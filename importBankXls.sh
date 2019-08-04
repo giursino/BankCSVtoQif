@@ -1,7 +1,8 @@
 #!/bin/sh
-#set -x
+set -x
 
-INPUT=$1
+INPUT="$1"
+OUTPUT="$INPUT.qif"
 BANK_TYPE="fineco"
 
 usage () {
@@ -34,13 +35,13 @@ if [ ! "$#" -eq 1 ]; then
 	exit 1
 fi
 
-if [ -z $INPUT ]; then 
+if [ -z "$INPUT" ]; then 
 	echo "ERROR: input file missing."
 	usage
 	exit 1
 fi
 
-if [ ! -f $INPUT ]; then 
+if [ ! -f "$INPUT" ]; then 
 	echo "ERROR: input file not valid."
 	usage
 	exit 1
@@ -69,10 +70,10 @@ echo "Converting to CSV..."
 #  Text delimiter: '"' (34)
 #  Numeric format: system locale (it_IT)
 # Note: It is also possibile to change locale export prefixing the command with LC_ALL=es_US but I don't like the date format.
-libreoffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":59,34,,, $INPUT --outdir $TMPD
-TMPF=$TMPD/$(ls -1 $TMPD)
+libreoffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":59,34,,, "$INPUT" --outdir $TMPD
+TMPF="$TMPD/$(ls -1 $TMPD)"
 echo "Converting to QIF..."
-b2q $BANK_TYPE $TMPF $1.qif
-echo "Generated $1.qif."
+b2q $BANK_TYPE "$TMPF" "$OUTPUT"
+echo "Generated $OUTPUT."
 rm -rf $TMPD
 echo "Done."
