@@ -70,8 +70,16 @@ echo "Converting to CSV..."
 #  Text delimiter: '"' (34)
 #  Numeric format: system locale (it_IT)
 # Note: It is also possibile to change locale export prefixing the command with LC_ALL=es_US but I don't like the date format.
+if pidof soffice.bin > /dev/null; then
+	echo "ERROR: libreoffice is running, please close it."
+	exit 1
+fi
 libreoffice --headless --convert-to csv:"Text - txt - csv (StarCalc)":59,34,,, "$INPUT" --outdir $TMPD
 TMPF="$TMPD/$(ls -1 $TMPD)"
+if [ ! -f "$TMPF" ]; then
+	echo "ERROR: CSV conversion failed."
+	exit 1
+fi
 echo "Converting to QIF..."
 b2q $BANK_TYPE "$TMPF" "$OUTPUT"
 echo "Generated $OUTPUT."
