@@ -1,5 +1,5 @@
 #!/bin/sh
-set -x
+#set -x
 
 INPUT="$1"
 OUTPUT="$INPUT.qif"
