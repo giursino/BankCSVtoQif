@@ -29,7 +29,7 @@ class Fineco(BankAccountConfig):
     def __init__(self):
         BankAccountConfig.__init__(self)
 
-        self.delimiter = ','
+        self.delimiter = ';'
         self.quotechar = '"'
         self.dropped_lines = 7
         self.default_source_account = 'Attività:Attività correnti:Conto corrente:Fineco C/C'
