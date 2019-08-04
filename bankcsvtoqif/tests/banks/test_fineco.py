@@ -103,7 +103,7 @@ class TestFinecoBonificoOut(unittest.TestCase):
 class TestFinecoBonificoIn(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """10/06/2016;10/06/2016;"39,3";;Bonifico SEPA Italia;Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
+        self.csv = """10/06/2016;10/06/2016;"15.039,3";;Bonifico SEPA Italia;Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -116,7 +116,7 @@ class TestFinecoBonificoIn(unittest.TestCase):
         description = 'Ascell'
         memo = 'Bonifico SEPA Italia - Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016'
         debit = 0
-        credit = 39.3
+        credit = 15039.3
         self.assertEqual(account_config.get_date(line), date)
         self.assertEqual(account_config.get_description(line), description)
         self.assertEqual(account_config.get_memo(line), memo)
