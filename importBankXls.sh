@@ -1,8 +1,6 @@
 #!/bin/sh
 #set -x
 
-INPUT="$1"
-OUTPUT="$INPUT.qif"
 BANK_TYPE="fineco"
 
 usage () {
@@ -29,6 +27,9 @@ do
 	esac
 done
 shift $(($OPTIND - 1))
+
+INPUT="$1"
+OUTPUT="$INPUT.qif"
 
 if [ ! "$#" -eq 1 ]; then
 	usage

@@ -7,4 +7,4 @@ if [ ! $? = 0 ]; then
 	exit 1
 fi
 
-. importBankXls.sh -t "arancio" "$1"
+importBankXls.sh -t "arancio" "$INPUT"
