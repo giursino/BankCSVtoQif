@@ -185,6 +185,11 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Ristorazione"
 
+                # NAI
+                d= re.compile('^NAI SRL.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
         elif (ttype == "Bonifico SEPA Italia"):
             
             # Giulia
