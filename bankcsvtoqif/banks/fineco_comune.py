@@ -65,7 +65,7 @@ class FinecoComune(BankAccountConfig):
             # Rinomino in modo comprensibile: Pizzalonga
             d = re.compile('^ROLAND FATA.*$')
             g = d.match(description)
-            if (g is not None): description = "Pizzalonga"
+            if (g is not None): description = "PIZZALONGA"
             
             
         elif (ttype == "Bonifico SEPA Italia"):
@@ -181,7 +181,7 @@ class FinecoComune(BankAccountConfig):
                 if (g is not None): return "Uscite:Trasporti"
 
                 # PIZZALONGA
-                d= re.compile('^Pizzalonga.*$');
+                d= re.compile('^PIZZALONGA.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Ristorazione"
 

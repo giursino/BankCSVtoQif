@@ -656,8 +656,35 @@ class TestFinecoPizzalonga(unittest.TestCase):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 6, 22)
-        description = "Pizzalonga"
+        description = "PIZZALONGA"
         memo = "Pagamento Visa Debit - ROLAND FATA D.I. NOVENTA PADOV IT Carta N. ***** 142 Data operazione 06/10/19"
+        debit = 0
+        credit = 1
+        target_account = 'Uscite:Ristorazione'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+
+class TestFinecoPizzalonga2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 24/11/19 ora 20:06 presso: PIZZALONGA AWAY VIA VALMARANA 44 NOVENTA PADOVANA 35027 ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 6, 22)
+        description = "PIZZALONGA AWAY VIA VALMARANA 44 NOVENTA PADOVANA 35027 ITA"
+        memo = "PagoBancomat POS - Pag. del 24/11/19 ora 20:06 presso: PIZZALONGA AWAY VIA VALMARANA 44 NOVENTA PADOVANA 35027 ITA Carta N° *****314 Nessuna Commissione"
         debit = 0
         credit = 1
         target_account = 'Uscite:Ristorazione'
