@@ -61,6 +61,11 @@ class FinecoComune(BankAccountConfig):
             d = re.compile('^(.*)C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
             g = d.match(line[5])
             if (g is not None) and g.group(1): description = g.group(1)
+
+            # Rinomino in modo comprensibile: Pizzalonga
+            d = re.compile('^ROLAND FATA.*$')
+            g = d.match(description)
+            if (g is not None): description = "Pizzalonga"
             
             
         elif (ttype == "Bonifico SEPA Italia"):
@@ -174,7 +179,12 @@ class FinecoComune(BankAccountConfig):
                 d = re.compile('^A[ ]*U[ ]*T[ ]*O[ ]*S[ ]*T.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Trasporti"
-            
+
+                # PIZZALONGA
+                d= re.compile('^Pizzalonga.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Ristorazione"
+
         elif (ttype == "Bonifico SEPA Italia"):
             
             # Giulia
