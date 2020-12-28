@@ -94,6 +94,12 @@ class Fineco(BankAccountConfig):
         elif (ttype == "FastPay"):
             description = "Autostrada"
             
+        elif (ttype == "Canone Mensile Conto"):
+            description = "Fineco"
+            
+        elif (ttype == "Sconto Canone Mensile"):
+            description = "Fineco"
+            
         elif (ttype == "Imposta bollo dossier titoli"):
             description = "Fineco"
             
@@ -137,6 +143,10 @@ class Fineco(BankAccountConfig):
         if (ttype == "FastPay"):
             target = "Uscite:Mobilità:Auto:Autostrada"
             
+        elif ((ttype == "Canone Mensile Conto") or
+             (ttype == "Sconto Canone Mensile")):
+            target = "Uscite:Uscite Bancarie:Costi"
+
         elif ((ttype == "Imposta bollo dossier titoli") or
              (ttype == "Imposta bollo conto corrente")):
             target = "Uscite:Uscite Bancarie:Tasse"
