@@ -187,6 +187,12 @@ class Fineco(BankAccountConfig):
                 d = re.compile('.*P[ ]*a[ ]*y[ ]*P[ ]*a[ ]*l.*$');
                 g = d.match(description);
                 if (g is not None): return "Attività:Attività correnti:Conto corrente:Paypal"
+
+                # MYCICERO
+                d = re.compile('.*WWW.MYCICERO.IT.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Mobilità:Auto:Parcheggio"
+
             
         elif (ttype == "Bonifico SEPA Italia"):
           description = self.get_description(line)
