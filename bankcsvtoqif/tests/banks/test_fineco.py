@@ -381,6 +381,32 @@ class TestFinecoCarburante3(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoCarburante4(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016;07/08/2016;;"10";PagoBancomat POS;Pag. del 27/07/20 ora 17:34 presso: DISTRIBUTORE ESSO   VIA PONTAROLA RESCH   PADOVA   35100 ITA Carta N° *****551 Nessuna Commissione"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2016, 8, 7)
+        description = "DISTRIBUTORE ESSO VIA PONTAROLA RESCH PADOVA 35100 ITA"
+        memo = "PagoBancomat POS - Pag. del 27/07/20 ora 17:34 presso: DISTRIBUTORE ESSO VIA PONTAROLA RESCH PADOVA 35100 ITA Carta N° *****551 Nessuna Commissione"
+        debit = 10
+        credit = 0
+        target_account = 'Uscite:Mobilità:Auto:Carburante'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
 class TestFinecoCarburanteError(unittest.TestCase):
 
     def setUp(self):

@@ -178,6 +178,11 @@ class Fineco(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Mobilità:Auto:Carburante"
             
+                # ESSO
+                d = re.compile('.* ESSO .*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Mobilità:Auto:Carburante"
+
                 # AUTOST
                 d = re.compile('^A[ ]*U[ ]*T[ ]*O[ ]*S[ ]*T.*$');
                 g = d.match(description);
