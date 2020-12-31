@@ -613,6 +613,31 @@ class TestFinecoLuce(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoLuce2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "28/03/2017";"28/03/2017";"";"2";"SEPA Direct Debit";"Sorgenia S.p.A. Addebito SDD fattura a Vs carico da *** Mand *** Per ***" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 3, 28)
+        description = "Sorgenia S.p.A."
+        memo = "SEPA Direct Debit - Sorgenia S.p.A. Addebito SDD fattura a Vs carico da *** Mand *** Per ***"
+        debit = 2
+        credit = 0
+        target_account = 'Uscite:Servizi:Elettricità'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
 
 class TestFinecoGSE(unittest.TestCase):
 
@@ -799,3 +824,54 @@ class TestFinecoCanone2(unittest.TestCase):
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoMacelleria(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 29/02/20 ora 17:34 presso: LA MACELLERIA DA GIANNI VIA MARCONI 18 NOVE NOVENTA PADOVANA 35027 ITA Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 6, 22)
+        description = "LA MACELLERIA DA GIANNI VIA MARCONI 18 NOVE NOVENTA PADOVANA 35027 ITA"
+        memo = "PagoBancomat POS - Pag. del 29/02/20 ora 17:34 presso: LA MACELLERIA DA GIANNI VIA MARCONI 18 NOVE NOVENTA PADOVANA 35027 ITA Carta N° *****313 Nessuna Commissione"
+        debit = 0
+        credit = 1
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoSupermercato(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 22/09/20 ora 18:54 presso: SUPERMERCATO ASPIAG SERVICE S.R.L. VIA UDINE,3 CAPRICCI PADOVA 35010 PD IT Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 6, 22)
+        description = "SUPERMERCATO ASPIAG SERVICE S.R.L. VIA UDINE,3 CAPRICCI PADOVA 35010 PD IT"
+        debit = 0
+        credit = 1
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+

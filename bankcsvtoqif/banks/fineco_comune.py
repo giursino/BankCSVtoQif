@@ -207,6 +207,16 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
 
+                # MACELLERIA
+                d= re.compile('.* MACELLERIA .*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
+                # SUPERMERCATO
+                d= re.compile('.*SUPERMERCATO.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
         elif (ttype == "Bonifico SEPA Italia"):
             
             # Giulia
@@ -236,6 +246,11 @@ class FinecoComune(BankAccountConfig):
             
             # Enel
             d = re.compile('^.*E[ ]*L[ ]*E[ ]*T[ ]*T[ ]*R[ ]*I[ ]*C[ ]*O.*$')
+            g = d.match(line[5])
+            if (g is not None): return "Uscite:Servizi:Elettricità"
+
+            # Sorgenia
+            d = re.compile('^.*Sorgenia.*$')
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Elettricità"
             
