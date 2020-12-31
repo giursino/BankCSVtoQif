@@ -116,6 +116,7 @@ class FinecoComune(BankAccountConfig):
             g = d.match(line[5])
             if (g is not None) and g.group(2) and g.group(3):
                 if g.group(2) == "990": description = "Giuseppe" + " - " + g.group(3)
+                elif g.group(2) == "660": description = "Giulia" + " - " + g.group(3)
                 else: description = g.group(3)
                         
         return ' '.join(description.split())
@@ -236,11 +237,14 @@ class FinecoComune(BankAccountConfig):
                         
         elif (ttype == "Giroconto"):
             
-            # Giuseppe
             d = re.compile('^Giroconto (dal|sul) cc n. [0-9]*([0-9]{3}).*01[ -]*(.*)$')
             g = d.match(line[5])
+            # Giuseppe
             if (g is not None) and g.group(2) and g.group(3) and g.group(2) == "990":
                 if  "TRASFERIMENTO" in g.group(3): return "Entrate:Giuseppe"
+            # Giulia
+            if (g is not None) and g.group(2) and g.group(3) and g.group(2) == "660":
+                if  "SPESE COMUNI" in g.group(3): return "Entrate:Giulia"
             
         elif (ttype == "SEPA Direct Debit"):
             
