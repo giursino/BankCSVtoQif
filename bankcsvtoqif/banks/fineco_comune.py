@@ -186,6 +186,11 @@ class FinecoComune(BankAccountConfig):
                 d = re.compile('L[ ]*E[ ]*R[ ]*O[ ]*Y.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Ferramenta"
+
+                # FERRAMENTA
+                d = re.compile('FERRAMENTA');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Ferramenta"
             
                 # TIGOTA
                 d = re.compile('T[ ]*I[ ]*G[ ]*O[ ]*T[ ]*A.*$');

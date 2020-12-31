@@ -429,6 +429,32 @@ class TestFinecoBrico(unittest.TestCase):
         self.assertEqual(account_config.get_memo(line), memo)
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)        
+
+class TestFinecoFerramenta(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "27/02/2017";"26/02/2017";"";"18,2";"PagoBancomat POS";"Pag. del 14/07/20 ora 18:36 presso: FERRAMENTA PONCHIA S.R VIA ANDORRA 4 PADOVA 35127 ITA Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 2, 26)
+        description = "FERRAMENTA PONCHIA S.R VIA ANDORRA 4 PADOVA 35127 ITA"
+        memo = "PagoBancomat POS - Pag. del 14/07/20 ora 18:36 presso: FERRAMENTA PONCHIA S.R VIA ANDORRA 4 PADOVA 35127 ITA Carta N° *****313 Nessuna Commissione"
+        debit = 18.2
+        credit = 0
+        target_account = 'Uscite:Ferramenta'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
 class TestFinecoLeroy(unittest.TestCase):
