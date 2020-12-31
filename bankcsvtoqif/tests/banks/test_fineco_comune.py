@@ -378,6 +378,32 @@ class TestFinecoIpercoop2(unittest.TestCase):
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoIpercoop3(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "03/05/2017";"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 08/03/20 ora 12:12 presso: SUPERMERCATO 0344 IPER VIGONZA   VIA REGIA,86/23   VIGONZA   35010     PD IT Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 5, 2)
+        description = "IPERCOOP VIGONZA"
+        memo = "PagoBancomat POS - Pag. del 08/03/20 ora 12:12 presso: SUPERMERCATO 0344 IPER VIGONZA VIA REGIA,86/23 VIGONZA 35010 PD IT Carta N° *****313 Nessuna Commissione"
+        debit = 67.13
+        credit = 0
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
         
 class TestFinecoBrico(unittest.TestCase):
 
@@ -715,6 +741,58 @@ class TestFinecoNai(unittest.TestCase):
         debit = 0
         credit = 1
         target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoCanone(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/12/2020;30/11/2020;;"3,95";Canone Mensile Conto;Canone Mensile Conto Novembre 2020"""
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2020, 11, 30)
+        description = "Fineco"
+        memo = "Canone Mensile Conto - Canone Mensile Conto Novembre 2020"
+        debit = 3.95
+        credit = 0
+        target_account = 'Uscite:Servizi:Banca'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoCanone2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/12/2020;30/11/2020;"3,95";0;Rimborso Canone 2020;Rimborso Canone Mensile Novembre 2020"""
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2020, 11, 30)
+        description = "Fineco"
+        memo = "Rimborso Canone 2020 - Rimborso Canone Mensile Novembre 2020"
+        debit = 0
+        credit = 3.95
+        target_account = 'Uscite:Servizi:Banca'
         self.assertEqual(account_config.get_date(line), date)
         self.assertEqual(account_config.get_description(line), description)
         self.assertEqual(account_config.get_memo(line), memo)

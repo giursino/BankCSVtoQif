@@ -52,7 +52,7 @@ class FinecoComune(BankAccountConfig):
             if (g is not None) and (g.group(1)): description = g.group(1)
             
             # Rinomino in modo comprensibile: IperCoop
-            d = re.compile('^NEG 0344.*$')
+            d = re.compile('^.* 0344 .*$')
             g = d.match(description)
             if (g is not None): description = "IPERCOOP VIGONZA"
             
@@ -84,6 +84,12 @@ class FinecoComune(BankAccountConfig):
         elif (ttype == "Imposta bollo conto corrente"):
             description = "Fineco"
             
+        elif (ttype == "Canone Mensile Conto"):
+            description = "Fineco"
+
+        elif (ttype == "Rimborso Canone 2020"):
+            description = "Fineco"
+            
         elif (ttype == "MaxiPrelievo Banche del Gruppo"):
             description = "Prelievo"
             
@@ -109,8 +115,8 @@ class FinecoComune(BankAccountConfig):
             d = re.compile('^Giroconto (dal|sul) cc n. [0-9]*([0-9]{3}).*01[ -]*(.*)$')
             g = d.match(line[5])
             if (g is not None) and g.group(2) and g.group(3):
-				if g.group(2) == "990": description = "Giuseppe" + " - " + g.group(3)
-				else: description = g.group(3)
+                if g.group(2) == "990": description = "Giuseppe" + " - " + g.group(3)
+                else: description = g.group(3)
                         
         return ' '.join(description.split())
         
@@ -137,6 +143,12 @@ class FinecoComune(BankAccountConfig):
         elif (ttype == "Imposta bollo conto corrente"):
             target = "Uscite:Servizi:Banca"
             
+        elif (ttype == "Canone Mensile Conto"):
+            target = "Uscite:Servizi:Banca"
+
+        elif (ttype == "Rimborso Canone 2020"):
+            target = "Uscite:Servizi:Banca"
+            
         elif (ttype == "MaxiPrelievo Banche del Gruppo"):
             target = "Attività:Attività correnti:Liquidità"
             
@@ -160,6 +172,11 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
             
+                # IPERCOOP
+                d= re.compile('.* 0344 .*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
                 # BRICO
                 d = re.compile('B[ ]*R[ ]*I[ ]*C[ ]*O.*$');
                 g = d.match(description);
@@ -208,7 +225,7 @@ class FinecoComune(BankAccountConfig):
             d = re.compile('^Giroconto (dal|sul) cc n. [0-9]*([0-9]{3}).*01[ -]*(.*)$')
             g = d.match(line[5])
             if (g is not None) and g.group(2) and g.group(3) and g.group(2) == "990":
-				if  "TRASFERIMENTO" in g.group(3): return "Entrate:Giuseppe"
+                if  "TRASFERIMENTO" in g.group(3): return "Entrate:Giuseppe"
             
         elif (ttype == "SEPA Direct Debit"):
             
@@ -226,5 +243,5 @@ class FinecoComune(BankAccountConfig):
             d = re.compile('^.*E[ ]*N[ ]*E[ ]*R[ ]*G[ ]*I[ ]*A[ ]*T[ ]*E[ ]*R[ ]*R[ ]*I[ ]*T[ ]*O[ ]*R[ ]*I[ ]*O.*$')
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Acqua"
-                            
+            
         return target
