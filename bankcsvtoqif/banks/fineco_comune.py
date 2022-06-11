@@ -174,7 +174,7 @@ class FinecoComune(BankAccountConfig):
                 if (g is not None): return "Uscite:Alimentari"
             
                 # IPERCOOP
-                d= re.compile('.* 344 .*$');
+                d= re.compile('.*344 .*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
 

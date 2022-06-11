@@ -421,6 +421,22 @@ class TestFinecoIpercoop4(unittest.TestCase):
         target_account = 'Uscite:Alimentari'
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoIpercoop5(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "03/05/2017";"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 02/05/22 ora 18:33 presso: 344 IPER VIGONZA   VIA REGIA,86 23   VIGONZA   35010     PD ITA Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
 class TestFinecoBrico(unittest.TestCase):
 
     def setUp(self):
