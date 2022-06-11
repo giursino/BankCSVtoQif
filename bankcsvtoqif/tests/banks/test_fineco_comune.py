@@ -799,6 +799,37 @@ class TestFinecoPizzalonga2(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoPizzalonga3(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 25/01/21 ora 19:44 presso: PADOVA FOOD   VIA SERGIO FRACCALA   PADOVA   35129        ITA Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Ristorazione'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoPizzalonga4(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 23/11/21 ora 18:15 presso: PADOVA HFB ECO   VIA SERGIO FRACCALA   PADOVA   35129        ITA Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Ristorazione'
+        self.assertEqual(account_config.get_target_account(line), target_account)
 
 class TestFinecoNai(unittest.TestCase):
 
@@ -928,3 +959,146 @@ class TestFinecoSupermercato(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoPanBianco(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 02/11/21 ora 17:33 presso: PAN BIANCO SNC   VIA ROMA 177   NOVENTA PADOVANA   35027        ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoMercato1(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 24/08/21 ora 11:46 presso: FINACOM   VIA ROMA 70/A   VIGONOVO   30030     NF ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoMercato2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 08/06/21 ora 12:06 presso: GIANNI E MIRCA   VIA FERROVIA,28   DOLO   30031     VE ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoGelateriaAngela(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"SumUp  *LA BOTTEGA DI  Noventa Padov IT Carta N. ***** 142                      Data operazione 08/03/21" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Ristorazione'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoPrenatal1(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 26/02/21 ora 19:29 presso: PRENATAL RETAIL GROUP SPA   VIA FRACCALANZA 5B   PADOVA   35129     PD IT Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Prole:Igiene'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoPrenatal2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 30/01/21 ora 18:48 presso: PRENATAL 2   VIA VENEZIA 132   PADOVA   35100        ITA Carta N° *****313 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Prole:Accessori'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoOviesse(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"OVIESSE                PADOVA        IT Carta N. ***** 142                      Data operazione 12/10/21" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Prole:Abbigliamento'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoFarmacia(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 09/09/21 ora 19:13 presso: FARMACIA ALLA RIVIERA   VIA ROMA 23   NOVENTA PADOVANA   35027     PD ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Prole:Salute'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoInps(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: INPS-IT-ROMA-via Ciro il Grande 21 Ben: URSINO GIUSEPPE Dt-ord: 23/08/2021 Banca Ord: BANCA DITALIA Info-Cli: /BENEF/LUG 2021  .RSNMVT21A68G224L                                 .         .                                                 .         ." """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Entrate:Contributi Statali'
+        self.assertEqual(account_config.get_target_account(line), target_account)

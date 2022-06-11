@@ -208,6 +208,16 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Ristorazione"
 
+                # PIZZALONGA
+                d= re.compile('^PADOVA FOOD.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Ristorazione"
+
+                # PIZZALONGA
+                d= re.compile('^PADOVA HFB.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Ristorazione"
+
                 # NAI
                 d= re.compile('^NAI SRL.*$');
                 g = d.match(description);
@@ -223,6 +233,47 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
 
+                # PAN BIANCO
+                d= re.compile('^PAN BIANCO.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
+                # MERCATO
+                d= re.compile('^FINACOM.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
+                # PESCE
+                d= re.compile('^GIANNI E MIRCA.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
+                # GELATO - SumUp  *LA BOTTEGA D
+                d= re.compile('^SumUp.*LA BOTTEGA.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Ristorazione"
+
+                # BIMBOSTORE
+                d= re.compile('^PRENATAL.*VIA FRACCALANZA.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Prole:Igiene"
+
+                # PRENATAL
+                d= re.compile('^PRENATAL.*VIA VENEZIA.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Prole:Accessori"
+
+                # OVIESSE
+                d= re.compile('^OVIESSE.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Prole:Abbigliamento"
+
+                # FARMACIA
+                d= re.compile('^FARMACIA.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Prole:Salute"
+
+
         elif (ttype == "Bonifico SEPA Italia"):
             
             # Giulia
@@ -234,7 +285,13 @@ class FinecoComune(BankAccountConfig):
             d = re.compile('Ord\: GSE S.P.A. Ben\:')
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Elettricità"
-                        
+
+            # INPS
+            d = re.compile('Ord\: INPS')
+            g = d.match(line[5])
+            if (g is not None): return "Entrate:Contributi Statali"
+
+
         elif (ttype == "Giroconto"):
             
             d = re.compile('^Giroconto (dal|sul) cc n. [0-9]*([0-9]{3}).*01[ -]*(.*)$')
