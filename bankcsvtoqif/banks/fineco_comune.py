@@ -174,7 +174,7 @@ class FinecoComune(BankAccountConfig):
                 if (g is not None): return "Uscite:Alimentari"
             
                 # IPERCOOP
-                d= re.compile('.* 0344 .*$');
+                d= re.compile('.* 344 .*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
 
@@ -243,6 +243,11 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
 
+                # MERCATO
+                d= re.compile('^PIZZOLATO ANTONIO.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
                 # PESCE
                 d= re.compile('^GIANNI E MIRCA.*$');
                 g = d.match(description);
@@ -256,12 +261,12 @@ class FinecoComune(BankAccountConfig):
                 # BIMBOSTORE
                 d= re.compile('^PRENATAL.*VIA FRACCALANZA.*$');
                 g = d.match(description);
-                if (g is not None): return "Uscite:Prole:Igiene"
+                if (g is not None): return "Uscite:Prole:Materiale di consumo"
 
                 # PRENATAL
                 d= re.compile('^PRENATAL.*VIA VENEZIA.*$');
                 g = d.match(description);
-                if (g is not None): return "Uscite:Prole:Accessori"
+                if (g is not None): return "Uscite:Prole:Materiale di consumo"
 
                 # OVIESSE
                 d= re.compile('^OVIESSE.*$');

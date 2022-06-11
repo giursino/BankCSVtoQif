@@ -1007,6 +1007,22 @@ class TestFinecoMercato2(unittest.TestCase):
         target_account = 'Uscite:Alimentari'
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoMercato3(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 06/07/21 ora 11:05 presso: PIZZOLATO ANTONIO DI   VIA SORAN 5   MALO   36034        ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
 class TestFinecoGelateriaAngela(unittest.TestCase):
 
     def setUp(self):
@@ -1036,7 +1052,7 @@ class TestFinecoPrenatal1(unittest.TestCase):
     def test_getters(self):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
-        target_account = 'Uscite:Prole:Igiene'
+        target_account = 'Uscite:Prole:Materiale di consumo'
         self.assertEqual(account_config.get_target_account(line), target_account)
 
 class TestFinecoPrenatal2(unittest.TestCase):
@@ -1052,7 +1068,7 @@ class TestFinecoPrenatal2(unittest.TestCase):
     def test_getters(self):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
-        target_account = 'Uscite:Prole:Accessori'
+        target_account = 'Uscite:Prole:Materiale di consumo'
         self.assertEqual(account_config.get_target_account(line), target_account)
 
 class TestFinecoOviesse(unittest.TestCase):
