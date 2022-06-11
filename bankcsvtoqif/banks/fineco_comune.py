@@ -178,6 +178,11 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
 
+                # COOP
+                d= re.compile('.*478 .*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
                 # BRICO
                 d = re.compile('B[ ]*R[ ]*I[ ]*C[ ]*O.*$');
                 g = d.match(description);
