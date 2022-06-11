@@ -991,6 +991,22 @@ class TestFinecoPanBianco(unittest.TestCase):
         target_account = 'Uscite:Alimentari'
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoOrtofrutta(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 05/02/22 ora 11:24 presso: BALDON ANGELA D.I.   VIA ROMA 138   NOVENTA PADOV   35027        ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
 class TestFinecoMercato1(unittest.TestCase):
 
     def setUp(self):

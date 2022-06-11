@@ -243,6 +243,11 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
 
+                # ORTOFRUTTA ROSSO CILIEGIA
+                d= re.compile('^BALDON ANGELA.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
                 # MERCATO
                 d= re.compile('^FINACOM.*$');
                 g = d.match(description);
