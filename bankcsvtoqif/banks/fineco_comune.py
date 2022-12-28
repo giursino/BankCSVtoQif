@@ -207,6 +207,16 @@ class FinecoComune(BankAccountConfig):
                 d = re.compile('^A[ ]*U[ ]*T[ ]*O[ ]*S[ ]*T.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Trasporti"
+                
+                # SUPERSTRADA
+                d = re.compile('SUPERSTRADA.*$')
+                g = d.match(description);
+                if (g is not None): return "Uscite:Trasporti"
+
+                # PIZZA
+                d = re.compile('(?i)^.*PIZZA.*$')
+                g = d.match(description);
+                if (g is not None): return "Uscite:Ristorazione"
 
                 # PIZZALONGA
                 d= re.compile('^PIZZALONGA.*$');
@@ -229,7 +239,7 @@ class FinecoComune(BankAccountConfig):
                 if (g is not None): return "Uscite:Alimentari"
 
                 # MACELLERIA
-                d= re.compile('.* MACELLERIA .*$');
+                d= re.compile('.* MACELLERI[A ].*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
 
@@ -240,6 +250,11 @@ class FinecoComune(BankAccountConfig):
 
                 # PAN BIANCO
                 d= re.compile('^PAN BIANCO.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Alimentari"
+
+                # PANIFICIO
+                d= re.compile('^.*PANIFICIO.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Alimentari"
 
@@ -268,6 +283,11 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Ristorazione"
 
+                # GELATO ANGELA
+                d= re.compile('^THE ICELAB.*$');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Ristorazione"
+
                 # BIMBOSTORE
                 d= re.compile('^PRENATAL.*VIA FRACCALANZA.*$');
                 g = d.match(description);
@@ -288,6 +308,16 @@ class FinecoComune(BankAccountConfig):
                 g = d.match(description);
                 if (g is not None): return "Uscite:Prole:Salute"
 
+                # FARMACIA LLOYDS
+                d= re.compile('.*LLOYDS.*');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Prole:Salute"
+
+                # NUOTO
+                d= re.compile('.*NUOTO.*');
+                g = d.match(description);
+                if (g is not None): return "Uscite:Prole:Sport"
+
 
         elif (ttype == "Bonifico SEPA Italia"):
             
@@ -298,6 +328,11 @@ class FinecoComune(BankAccountConfig):
             
             # GSE
             d = re.compile('Ord\: GSE S.P.A. Ben\:')
+            g = d.match(line[5])
+            if (g is not None): return "Uscite:Servizi:Elettricità"
+
+            # GSE
+            d = re.compile('Ord\: GESTORE DEI SERVIZI ENERGETICI.* Ben\:')
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Elettricità"
 
@@ -321,7 +356,8 @@ class FinecoComune(BankAccountConfig):
         elif (ttype == "SEPA Direct Debit"):
             
             # Internet
-            d = re.compile('W[ ]*i[ ]*n[ ]*d[ ]*-[ ]*T[ ]*r[ ]*e[ ]*')
+            #d = re.compile('W[ ]*i[ ]*n[ ]*d[ ]*-[ ]*T[ ]*r[ ]*e[ ]*')
+            d = re.compile('(?i)WIND[- ]TRE')
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Internet"
             
@@ -330,13 +366,23 @@ class FinecoComune(BankAccountConfig):
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Elettricità"
 
-            # Sorgenia
+            # Elettricità Sorgenia
             d = re.compile('^.*Sorgenia.*$')
+            g = d.match(line[5])
+            if (g is not None): return "Uscite:Servizi:Elettricità"
+            
+            # Elettricità A2A
+            d = re.compile('^.*A2A.*$')
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Elettricità"
             
             # Acqua
             d = re.compile('^.*E[ ]*N[ ]*E[ ]*R[ ]*G[ ]*I[ ]*A[ ]*T[ ]*E[ ]*R[ ]*R[ ]*I[ ]*T[ ]*O[ ]*R[ ]*I[ ]*O.*$')
+            g = d.match(line[5])
+            if (g is not None): return "Uscite:Servizi:Acqua"
+            
+            # Acqua
+            d = re.compile('.*ETRA.*')
             g = d.match(line[5])
             if (g is not None): return "Uscite:Servizi:Acqua"
             

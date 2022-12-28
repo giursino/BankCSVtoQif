@@ -275,6 +275,22 @@ class TestFinecoAutostradaPos(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoSuperstrada(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """07/09/2016;07/08/2016;;"10,1";"Pagamento Visa Debit";"SUPERSTRADA PEDEMONTAN TORINO IT Carta N. ***** 142 Data operazione xxx" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Trasporti'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
 class TestFinecoAliVisa(unittest.TestCase):
 
     def setUp(self):
@@ -342,7 +358,7 @@ class TestFinecoIpercoop(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 5, 2)
         description = "IPER COOP VIGONZA 344 V REGIA 86-BUSA VIG ONZA 35010 ITA"
-        memo = "PagoBancomat POS - Pag. del 02/05/17 ora 20:00 presso: IPER COOP VIGONZA 344 V REGIA 86-BUSA VIG ONZA 35010 ITA Carta N\xc2\xb0 *****31 3 Nessuna Commissione"
+        memo = "PagoBancomat POS - Pag. del 02/05/17 ora 20:00 presso: IPER COOP VIGONZA 344 V REGIA 86-BUSA VIG ONZA 35010 ITA Carta N° *****31 3 Nessuna Commissione"
         debit = 67.13
         credit = 0
         target_account = 'Uscite:Alimentari'
@@ -368,7 +384,7 @@ class TestFinecoIpercoop2(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 5, 2)
         description = "IPERCOOP VIGONZA"
-        memo = "PagoBancomat POS - Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA VIA REGIA 86 VIGON ZA 35010 ITA Carta N\xc2\xb0 *****313 Nessuna Commissione"
+        memo = "PagoBancomat POS - Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA VIA REGIA 86 VIGON ZA 35010 ITA Carta N° *****313 Nessuna Commissione"
         debit = 67.13
         credit = 0
         target_account = 'Uscite:Alimentari'
@@ -452,7 +468,7 @@ class TestFinecoBrico(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 2, 26)
         description = "BRICOCENTER PADOVA B1200 VIA VENEZIA 5 3/A PADOVA 35128 ITA"
-        memo = "PagoBancomat POS - Pag. del 26/02/17 ora 15:06 presso: BRICOCENTER PADOVA B1200 VIA VENEZIA 5 3/A PADOVA 35128 ITA Carta N\xc2\xb0 *****313 Nessuna commissione"
+        memo = "PagoBancomat POS - Pag. del 26/02/17 ora 15:06 presso: BRICOCENTER PADOVA B1200 VIA VENEZIA 5 3/A PADOVA 35128 ITA Carta N° *****313 Nessuna commissione"
         debit = 18.2
         credit = 0
         target_account = 'Uscite:Ferramenta'
@@ -504,7 +520,7 @@ class TestFinecoLeroy(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 3, 5)
         description = "LEROY MERLIN ITALIA VICE CC LE PIRAMID I VIA TORRI DI QUARTESOL 36040 ITA"
-        memo = "PagoBancomat POS - Pag. del 05/03/17 ora 17:29 presso: LEROY MERLIN ITALIA VICE CC LE PIRAMID I VIA TORRI DI QUARTESOL 36040 ITA Carta N\xc2\xb0 *****313 Nessuna commissione"
+        memo = "PagoBancomat POS - Pag. del 05/03/17 ora 17:29 presso: LEROY MERLIN ITALIA VICE CC LE PIRAMID I VIA TORRI DI QUARTESOL 36040 ITA Carta N° *****313 Nessuna commissione"
         debit = 6.05
         credit = 0
         target_account = 'Uscite:Ferramenta'
@@ -530,7 +546,7 @@ class TestFinecoTigota(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 2, 20)
         description = "TIGOTA VIA VENEZIA 124 PADOVA 3512 9 ITA"
-        memo = "PagoBancomat POS - Pag. del 20/02/17 ora 13:31 presso: TIGOTA VIA VENEZIA 124 PADOVA 3512 9 ITA Carta N\xc2\xb0 *****314 Nessuna commissione"
+        memo = "PagoBancomat POS - Pag. del 20/02/17 ora 13:31 presso: TIGOTA VIA VENEZIA 124 PADOVA 3512 9 ITA Carta N° *****314 Nessuna commissione"
         debit = 25.9
         credit = 0
         target_account = 'Uscite:Casalinghi'
@@ -672,6 +688,32 @@ class TestFinecoInternet(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoInternet2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "19/05/2017";"19/05/2017";"";"4,9";"SEPA Direct Debit";"WIND TRE S P A Addebito SDD fattura a Vs carico                                 da xxx Mand xxx Per" """
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 5, 19)
+        description = "WIND TRE S P A"
+        memo = "SEPA Direct Debit - WIND TRE S P A Addebito SDD fattura a Vs carico da xxx Mand xxx Per"
+        debit = 4.9
+        credit = 0
+        target_account = 'Uscite:Servizi:Internet'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(
+            account_config.get_target_account(line), target_account)
+
 class TestFinecoLuce(unittest.TestCase):
 
     def setUp(self):
@@ -724,10 +766,26 @@ class TestFinecoLuce2(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoLuce3(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "28/03/2017";"28/03/2017";"";"2";"SEPA Direct Debit";"A2A SPA Addebito SDD fattura a Vs caricoda xxx Mand xxx Per Fatt.xxx Scad.xxx Imp. xxx" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Servizi:Elettricità'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
 class TestFinecoGSE(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: GSE S.P.A. Ben: FAVARETTO GIULIA Dt -ord: 22/06/2017 Banca Ord: xxx Info-Cli: FT: 2018087" """
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: GSE S.P.A. Ben: xxx Dt -ord: 22/06/2017 Banca Ord: xxx Info-Cli: FT: 2018087" """
         
 
     def test_can_instantiate(self):
@@ -739,7 +797,7 @@ class TestFinecoGSE(unittest.TestCase):
         line = csvline_to_line(self.csv, account_config)
         date = datetime(2017, 6, 22)
         description = "GSE S.P.A. - FT: 2018087"
-        memo = "Bonifico SEPA Italia - Ord: GSE S.P.A. Ben: FAVARETTO GIULIA Dt -ord: 22/06/2017 Banca Ord: xxx Info-Cli: FT: 2018087"
+        memo = "Bonifico SEPA Italia - Ord: GSE S.P.A. Ben: xxx Dt -ord: 22/06/2017 Banca Ord: xxx Info-Cli: FT: 2018087"
         debit = 0
         credit = 1
         target_account = 'Uscite:Servizi:Elettricità'
@@ -749,6 +807,33 @@ class TestFinecoGSE(unittest.TestCase):
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
+
+
+class TestFinecoGSE2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: GESTORE DEI SERVIZI ENERGETICI - GS Ben: xxx Dt-ord: xxx Banca Ord: BNL Info-Cli: FT: 112233" """
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2017, 6, 22)
+        description = "GESTORE DEI SERVIZI ENERGETICI - GS - FT: 112233"
+        memo = "Bonifico SEPA Italia - Ord: GESTORE DEI SERVIZI ENERGETICI - GS Ben: xxx Dt-ord: xxx Banca Ord: BNL Info-Cli: FT: 112233"
+        debit = 0
+        credit = 1
+        target_account = 'Uscite:Servizi:Elettricità'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(
+            account_config.get_target_account(line), target_account)
 
 
 class TestFinecoETRA(unittest.TestCase):
@@ -777,6 +862,38 @@ class TestFinecoETRA(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoETRA2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"SEPA Direct Debit";"ETRA S.P.A. Addebito SDD fattura a Vs carico da xxx Mand xxx Per" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Servizi:Acqua'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+
+class TestFinecoPizza(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"SumUp *New Pizza Nove Noventa Padov IT Carta N. ***** 142 Data operazione 11/09/22" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Ristorazione'
+        self.assertEqual(account_config.get_target_account(line), target_account)
 
 class TestFinecoPizzalonga(unittest.TestCase):
 
@@ -967,6 +1084,22 @@ class TestFinecoMacelleria(unittest.TestCase):
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoMacelleria2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 03/06/22 ora 18:59 presso: MANUEL DARIO MACELLERI VIA ROMA 99 NOVENTA PADOV 35027 ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
 class TestFinecoSupermercato(unittest.TestCase):
 
     def setUp(self):
@@ -995,6 +1128,22 @@ class TestFinecoPanBianco(unittest.TestCase):
 
     def setUp(self):
         self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 02/11/21 ora 17:33 presso: PAN BIANCO SNC   VIA ROMA 177   NOVENTA PADOVANA   35027        ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Alimentari'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoPanificio(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"PANIFICIO ALLA ROSA PADOVA IT Carta N. ***** 142 Data operazione 24/09/22" """
         
 
     def test_can_instantiate(self):
@@ -1087,6 +1236,22 @@ class TestFinecoGelateriaAngela(unittest.TestCase):
         target_account = 'Uscite:Ristorazione'
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoGelateriaAngela2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 14/06/22 ora 20:32 presso: THE ICELAB VIA CADUTI SUL LAVORO, 26 NOVENTA PADOV 35027 ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Ristorazione'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
 class TestFinecoPrenatal1(unittest.TestCase):
 
     def setUp(self):
@@ -1151,6 +1316,41 @@ class TestFinecoFarmacia(unittest.TestCase):
         target_account = 'Uscite:Prole:Salute'
         self.assertEqual(account_config.get_target_account(line), target_account)
 
+class TestFinecoFarmacia2(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"WWW.LLOYDSFARMACIA.IT  MILANO        IT Carta N. ***** 142                      Data operazione xxx" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+
+        description = "WWW.LLOYDSFARMACIA.IT MILANO IT"
+        target_account = 'Uscite:Prole:Salute'
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoFarmacia3(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 02/12/22 ora 16:38 presso: LLOYDS FARMACIA ALLA P   VIA REZZONICO   PADOVA   35100        ITA Carta N° *****314 Nessuna Commissione" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Prole:Salute'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
 class TestFinecoInps(unittest.TestCase):
 
     def setUp(self):
@@ -1165,4 +1365,20 @@ class TestFinecoInps(unittest.TestCase):
         account_config = FinecoComune()
         line = csvline_to_line(self.csv, account_config)
         target_account = 'Entrate:Contributi Statali'
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestNuoto(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"CENTRO NUOTO STRA S.R. STRA          IT Carta N. ***** 134 Data operazione xxx" """
+        
+
+    def test_can_instantiate(self):
+        account_config = FinecoComune()
+        self.assertEqual(type(account_config), FinecoComune)
+
+    def test_getters(self):
+        account_config = FinecoComune()
+        line = csvline_to_line(self.csv, account_config)
+        target_account = 'Uscite:Prole:Sport'
         self.assertEqual(account_config.get_target_account(line), target_account)
