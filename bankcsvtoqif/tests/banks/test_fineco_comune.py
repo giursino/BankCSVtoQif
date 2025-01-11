@@ -29,7 +29,7 @@ target_account = 'Sbilancio-EUR'
 class TestFinecoFastpay(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10,1";FastPay;Addebito FASTPAY Pedaggi da 01/08/16 al 31/08/16 Numero di pagamenti effettuati: 1"""
+        self.csv = """07/08/2016;;"10,1";FastPay;Addebito FASTPAY Pedaggi da 01/08/16 al 31/08/16 Numero di pagamenti effettuati: 1"""
 
     def test_can_instantiate(self):
         account_config = FinecoComune()
@@ -54,7 +54,7 @@ class TestFinecoFastpay(unittest.TestCase):
 class TestFinecoPrelievo(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """30/05/2016;27/05/2016;;250;Prelievi Bancomat extra Gruppo;Prelevamento Carta N ***** Data operazione 27/5/2016 Ora 13:41"""
+        self.csv = """27/05/2016;;250;Prelievi Bancomat extra Gruppo;Prelevamento Carta N ***** Data operazione 27/5/2016 Ora 13:41"""
 
     def test_can_instantiate(self):
         account_config = FinecoComune()
@@ -79,7 +79,7 @@ class TestFinecoPrelievo(unittest.TestCase):
 class TestFinecoBonificoOut(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """01/08/2016;01/08/2016;;38;Bonifico SEPA Italia;Ben: GIULIA XXX Ins: 30/07/2016 11 :42 Da: INTERNET Iban 444444 1111 TransID: 33333 1111 Cau: Saldo cene"""
+        self.csv = """01/08/2016;;38;Bonifico SEPA Italia;Ben: GIULIA XXX Ins: 30/07/2016 11 :42 Da: INTERNET Iban 444444 1111 TransID: 33333 1111 Cau: Saldo cene"""
 
     def test_can_instantiate(self):
         account_config = FinecoComune()
@@ -103,7 +103,7 @@ class TestFinecoBonificoOut(unittest.TestCase):
 class TestFinecoBonificoIn(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """10/06/2016;10/06/2016;"39,3";;Bonifico SEPA Italia;Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
+        self.csv = """10/06/2016;"39,3";;Bonifico SEPA Italia;Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
 
     def test_can_instantiate(self):
         account_config = FinecoComune()
@@ -127,7 +127,7 @@ class TestFinecoBonificoIn(unittest.TestCase):
 class TestFinecoVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """22/06/2016;18/06/2016;;"13,53";Pagamento Visa Debit;REPSOL DISTRIBUTORE    VIGONZA       ITCarta N. *****513Data operazione 18/06/2016"""
+        self.csv = """18/06/2016;;"13,53";Pagamento Visa Debit;REPSOL DISTRIBUTORE    VIGONZA       ITCarta N. *****513Data operazione 18/06/2016"""
 
     def test_can_instantiate(self):
         account_config = FinecoComune()
@@ -151,7 +151,7 @@ class TestFinecoVisa(unittest.TestCase):
 class TestFinecoPOSError(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10,1";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"""
+        self.csv = """07/08/2016;;"10,1";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -176,7 +176,7 @@ class TestFinecoPOSError(unittest.TestCase):
 class TestFinecoPOS(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "24/06/2017";"23/06/2017";"";"32,5";"PagoBancomat POS";"Pag. del 23/06/17 ora 21:06 presso: ERME S SNC DI RUZZA LUCA & C.   VIA DANTE ALI GHIERI,   VIGONOVO   30030     VE IT Car ta N° *****313 Nessuna Commissione" """
+        self.csv = """"23/06/2017";"";"32,5";"PagoBancomat POS";"Pag. del 23/06/17 ora 21:06 presso: ERME S SNC DI RUZZA LUCA & C.   VIA DANTE ALI GHIERI,   VIGONOVO   30030     VE IT Car ta N° *****313 Nessuna Commissione" """
 
 
     def test_can_instantiate(self):
@@ -201,7 +201,7 @@ class TestFinecoPOS(unittest.TestCase):
 class TestFinecoRicarica(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """16/06/2017;16/06/2017;;"20";Ricarica telefonica;Ricarica telefonica: XXX Data: 16 /06/17 Ora: 18:08"""
+        self.csv = """16/06/2017;;"20";Ricarica telefonica;Ricarica telefonica: XXX Data: 16 /06/17 Ora: 18:08"""
         
 
     def test_can_instantiate(self):
@@ -226,7 +226,7 @@ class TestFinecoRicarica(unittest.TestCase):
 class TestFinecoAutostradaVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10,1";Pagamento Visa Debit;AUTOST GRISIGNANO/PADO OVEST         ITCarta N. ***** 513Data operazione 08/06/17"""
+        self.csv = """07/08/2016;;"10,1";Pagamento Visa Debit;AUTOST GRISIGNANO/PADO OVEST         ITCarta N. ***** 513Data operazione 08/06/17"""
         
 
     def test_can_instantiate(self):
@@ -252,7 +252,7 @@ class TestFinecoAutostradaVisa(unittest.TestCase):
 class TestFinecoAutostradaPos(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10,1";PagoBancomat POS;Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"""
+        self.csv = """07/08/2016;;"10,1";PagoBancomat POS;Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -278,7 +278,7 @@ class TestFinecoAutostradaPos(unittest.TestCase):
 class TestFinecoSuperstrada(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10,1";"Pagamento Visa Debit";"SUPERSTRADA PEDEMONTAN TORINO IT Carta N. ***** 142 Data operazione xxx" """
+        self.csv = """07/08/2016;;"10,1";"Pagamento Visa Debit";"SUPERSTRADA PEDEMONTAN TORINO IT Carta N. ***** 142 Data operazione xxx" """
         
 
     def test_can_instantiate(self):
@@ -294,7 +294,7 @@ class TestFinecoSuperstrada(unittest.TestCase):
 class TestFinecoAliVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "16/06/2017";"14/06/2017";"";"5,71";"Pagamento Visa Debit";"ALI'                   NOVENTA PADOV ITCarta N. ***** 134Data operazione 14/06/17" """
+        self.csv = """"14/06/2017";"";"5,71";"Pagamento Visa Debit";"ALI'                   NOVENTA PADOV ITCarta N. ***** 134Data operazione 14/06/17" """
         
 
     def test_can_instantiate(self):
@@ -320,7 +320,7 @@ class TestFinecoAliVisa(unittest.TestCase):
 class TestFinecoAliPos(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "06/05/2017";"05/05/2017";"";"5,87";"PagoBancomat POS";"Pag. del 05/05/17 ora 12:48 presso: ALI' -NOVENTA PADOVANA   VIA G.MARCONI 9   NO VENTA PADOV   35027     NF ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"05/05/2017";"";"5,87";"PagoBancomat POS";"Pag. del 05/05/17 ora 12:48 presso: ALI' -NOVENTA PADOVANA   VIA G.MARCONI 9   NO VENTA PADOV   35027     NF ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -346,7 +346,7 @@ class TestFinecoAliPos(unittest.TestCase):
 class TestFinecoIpercoop(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "03/05/2017";"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 02/05/17 ora 20:00 presso: IPER COOP VIGONZA 344   V REGIA 86-BUSA   VIG ONZA   35010        ITA Carta N° *****31 3 Nessuna Commissione" """
+        self.csv = """"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 02/05/17 ora 20:00 presso: IPER COOP VIGONZA 344   V REGIA 86-BUSA   VIG ONZA   35010        ITA Carta N° *****31 3 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -372,7 +372,7 @@ class TestFinecoIpercoop(unittest.TestCase):
 class TestFinecoIpercoop2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "03/05/2017";"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA   VIA REGIA 86   VIGON ZA   35010        ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 05/07/17 ora 19:32 presso: NEG 0344 IPER VIGONZA   VIA REGIA 86   VIGON ZA   35010        ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -398,7 +398,7 @@ class TestFinecoIpercoop2(unittest.TestCase):
 class TestFinecoIpercoop3(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "03/05/2017";"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 08/03/20 ora 12:12 presso: SUPERMERCATO 0344 IPER VIGONZA   VIA REGIA,86/23   VIGONZA   35010     PD IT Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 08/03/20 ora 12:12 presso: SUPERMERCATO 0344 IPER VIGONZA   VIA REGIA,86/23   VIGONZA   35010     PD IT Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -424,7 +424,7 @@ class TestFinecoIpercoop3(unittest.TestCase):
 class TestFinecoIpercoop4(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "03/05/2017";"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 10/05/22 ora 16:14 presso: NEG 0478 PADOVA LA PACE   VIA DELLA PACE   PADOVA   35131        ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 10/05/22 ora 16:14 presso: NEG 0478 PADOVA LA PACE   VIA DELLA PACE   PADOVA   35131        ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -440,7 +440,7 @@ class TestFinecoIpercoop4(unittest.TestCase):
 class TestFinecoIpercoop5(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "03/05/2017";"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 02/05/22 ora 18:33 presso: 344 IPER VIGONZA   VIA REGIA,86 23   VIGONZA   35010     PD ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"02/05/2017";"";"67,13";"PagoBancomat POS";"Pag. del 02/05/22 ora 18:33 presso: 344 IPER VIGONZA   VIA REGIA,86 23   VIGONZA   35010     PD ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -456,7 +456,7 @@ class TestFinecoIpercoop5(unittest.TestCase):
 class TestFinecoBrico(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "27/02/2017";"26/02/2017";"";"18,2";"PagoBancomat POS";"Pag. del 26/02/17 ora 15:06 presso: BRICOCENTER PADOVA B1200   VIA VENEZIA 5 3/A   PADOVA   35128        ITA Carta N° *****313 Nessuna commissione" """
+        self.csv = """"26/02/2017";"";"18,2";"PagoBancomat POS";"Pag. del 26/02/17 ora 15:06 presso: BRICOCENTER PADOVA B1200   VIA VENEZIA 5 3/A   PADOVA   35128        ITA Carta N° *****313 Nessuna commissione" """
         
 
     def test_can_instantiate(self):
@@ -482,7 +482,7 @@ class TestFinecoBrico(unittest.TestCase):
 class TestFinecoFerramenta(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "27/02/2017";"26/02/2017";"";"18,2";"PagoBancomat POS";"Pag. del 14/07/20 ora 18:36 presso: FERRAMENTA PONCHIA S.R VIA ANDORRA 4 PADOVA 35127 ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"26/02/2017";"";"18,2";"PagoBancomat POS";"Pag. del 14/07/20 ora 18:36 presso: FERRAMENTA PONCHIA S.R VIA ANDORRA 4 PADOVA 35127 ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -508,7 +508,7 @@ class TestFinecoFerramenta(unittest.TestCase):
 class TestFinecoLeroy(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "06/03/2017";"05/03/2017";"";"6,05";"PagoBancomat POS";"Pag. del 05/03/17 ora 17:29 presso: LEROY MERLIN ITALIA VICE   CC LE PIRAMID I VIA   TORRI DI QUARTESOL   36040 ITA Carta N° *****313 Nessuna commissione" """
+        self.csv = """"05/03/2017";"";"6,05";"PagoBancomat POS";"Pag. del 05/03/17 ora 17:29 presso: LEROY MERLIN ITALIA VICE   CC LE PIRAMID I VIA   TORRI DI QUARTESOL   36040 ITA Carta N° *****313 Nessuna commissione" """
         
 
     def test_can_instantiate(self):
@@ -534,7 +534,7 @@ class TestFinecoLeroy(unittest.TestCase):
 class TestFinecoTigota(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "21/02/2017";"20/02/2017";"";"25,9";"PagoBancomat POS";"Pag. del 20/02/17 ora 13:31 presso: TIGOTA   VIA VENEZIA 124   PADOVA   3512 9        ITA Carta N° *****314 Nessuna commissione" """
+        self.csv = """"20/02/2017";"";"25,9";"PagoBancomat POS";"Pag. del 20/02/17 ora 13:31 presso: TIGOTA   VIA VENEZIA 124   PADOVA   3512 9        ITA Carta N° *****314 Nessuna commissione" """
         
 
     def test_can_instantiate(self):
@@ -560,7 +560,7 @@ class TestFinecoTigota(unittest.TestCase):
 class TestFinecoGiulia(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "03/01/2017";"03/01/2017";"5";"";"Bonifico SEPA Italia";"Ord: FAVARETTO GIULIA Ben: GIUSEP PE, GIULIA Dt-Reg: 03/01/2017 Banca Ord: XXX Info: NOTPROVIDED Info-Cli: giroconto su conto comune" """
+        self.csv = """"03/01/2017";"5";"";"Bonifico SEPA Italia";"Ord: FAVARETTO GIULIA Ben: GIUSEP PE, GIULIA Dt-Reg: 03/01/2017 Banca Ord: XXX Info: NOTPROVIDED Info-Cli: giroconto su conto comune" """
         
 
     def test_can_instantiate(self):
@@ -586,7 +586,7 @@ class TestFinecoGiulia(unittest.TestCase):
 class TestFinecoGiuseppe(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "18/12/2016";"18/12/2016";"5";"";"Giroconto";"Giroconto dal cc n. 1234990 / 01TRASFERIMENTO" """
+        self.csv = """"18/12/2016";"5";"";"Giroconto";"Giroconto dal cc n. 1234990 / 01TRASFERIMENTO" """
         
 
     def test_can_instantiate(self):
@@ -612,7 +612,7 @@ class TestFinecoGiuseppe(unittest.TestCase):
 class TestFinecoGiuseppeErr(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "18/12/2016";"18/12/2016";"5";"";"Giroconto";"Giroconto dal cc n. 991234991 / 01PIZZE" """
+        self.csv = """"18/12/2016";"5";"";"Giroconto";"Giroconto dal cc n. 991234991 / 01PIZZE" """
         
 
     def test_can_instantiate(self):
@@ -639,7 +639,7 @@ class TestFinecoGiuseppeErr(unittest.TestCase):
 class TestFinecoGiuliaEntrata(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "18/12/2016";"18/12/2016";"5";"";"Giroconto";"Giroconto dal cc n. 1234660 / 01 GIROCONTO SU CONTO COMUNE PER SPESE COMUNI" """
+        self.csv = """"18/12/2016";"5";"";"Giroconto";"Giroconto dal cc n. 1234660 / 01 GIROCONTO SU CONTO COMUNE PER SPESE COMUNI" """
         
 
     def test_can_instantiate(self):
@@ -665,7 +665,7 @@ class TestFinecoGiuliaEntrata(unittest.TestCase):
 class TestFinecoInternet(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "19/05/2017";"19/05/2017";"";"4,9";"SEPA Direct Debit";"Wind-Tre Addebito SDD fattura a Vs caric o da xxx Mand xxx xxx Per xxx xxx xxx xxx xxx xxx" """
+        self.csv = """"19/05/2017";"";"4,9";"SEPA Direct Debit";"Wind-Tre Addebito SDD fattura a Vs caric o da xxx Mand xxx xxx Per xxx xxx xxx xxx xxx xxx" """
         
 
     def test_can_instantiate(self):
@@ -691,7 +691,7 @@ class TestFinecoInternet(unittest.TestCase):
 class TestFinecoInternet2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "19/05/2017";"19/05/2017";"";"4,9";"SEPA Direct Debit";"WIND TRE S P A Addebito SDD fattura a Vs carico                                 da xxx Mand xxx Per" """
+        self.csv = """"19/05/2017";"";"4,9";"SEPA Direct Debit";"WIND TRE S P A Addebito SDD fattura a Vs carico                                 da xxx Mand xxx Per" """
 
     def test_can_instantiate(self):
         account_config = FinecoComune()
@@ -717,7 +717,7 @@ class TestFinecoInternet2(unittest.TestCase):
 class TestFinecoLuce(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "28/03/2017";"28/03/2017";"";"2";"SEPA Direct Debit";"SERVIZIO ELETTRICO NAZIONALE Addebito SD D fattura a Vs carico da xxx" """
+        self.csv = """"28/03/2017";"";"2";"SEPA Direct Debit";"SERVIZIO ELETTRICO NAZIONALE Addebito SD D fattura a Vs carico da xxx" """
         
 
     def test_can_instantiate(self):
@@ -743,7 +743,7 @@ class TestFinecoLuce(unittest.TestCase):
 class TestFinecoLuce2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "28/03/2017";"28/03/2017";"";"2";"SEPA Direct Debit";"Sorgenia S.p.A. Addebito SDD fattura a Vs carico da *** Mand *** Per ***" """
+        self.csv = """"28/03/2017";"";"2";"SEPA Direct Debit";"Sorgenia S.p.A. Addebito SDD fattura a Vs carico da *** Mand *** Per ***" """
         
 
     def test_can_instantiate(self):
@@ -769,7 +769,7 @@ class TestFinecoLuce2(unittest.TestCase):
 class TestFinecoLuce3(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "28/03/2017";"28/03/2017";"";"2";"SEPA Direct Debit";"A2A SPA Addebito SDD fattura a Vs caricoda xxx Mand xxx Per Fatt.xxx Scad.xxx Imp. xxx" """
+        self.csv = """"28/03/2017";"";"2";"SEPA Direct Debit";"A2A SPA Addebito SDD fattura a Vs caricoda xxx Mand xxx Per Fatt.xxx Scad.xxx Imp. xxx" """
         
 
     def test_can_instantiate(self):
@@ -785,7 +785,7 @@ class TestFinecoLuce3(unittest.TestCase):
 class TestFinecoGSE(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: GSE S.P.A. Ben: xxx Dt -ord: 22/06/2017 Banca Ord: xxx Info-Cli: FT: 2018087" """
+        self.csv = """"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: GSE S.P.A. Ben: xxx Dt -ord: 22/06/2017 Banca Ord: xxx Info-Cli: FT: 2018087" """
         
 
     def test_can_instantiate(self):
@@ -812,7 +812,7 @@ class TestFinecoGSE(unittest.TestCase):
 class TestFinecoGSE2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: GESTORE DEI SERVIZI ENERGETICI - GS Ben: xxx Dt-ord: xxx Banca Ord: BNL Info-Cli: FT: 112233" """
+        self.csv = """"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: GESTORE DEI SERVIZI ENERGETICI - GS Ben: xxx Dt-ord: xxx Banca Ord: BNL Info-Cli: FT: 112233" """
 
     def test_can_instantiate(self):
         account_config = FinecoComune()
@@ -839,7 +839,7 @@ class TestFinecoGSE2(unittest.TestCase):
 class TestFinecoETRA(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"SEPA Direct Debit";"ENERGIA TERRITORIO RISOR Addebito SDD fa ttura a Vs carico da xxx Mand xxx xxx Per XX" """
+        self.csv = """"22/06/2017";"1";"";"SEPA Direct Debit";"ENERGIA TERRITORIO RISOR Addebito SDD fa ttura a Vs carico da xxx Mand xxx xxx Per XX" """
         
 
     def test_can_instantiate(self):
@@ -865,7 +865,7 @@ class TestFinecoETRA(unittest.TestCase):
 class TestFinecoETRA2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"SEPA Direct Debit";"ETRA S.P.A. Addebito SDD fattura a Vs carico da xxx Mand xxx Per" """
+        self.csv = """"22/06/2017";"1";"";"SEPA Direct Debit";"ETRA S.P.A. Addebito SDD fattura a Vs carico da xxx Mand xxx Per" """
         
 
     def test_can_instantiate(self):
@@ -882,7 +882,7 @@ class TestFinecoETRA2(unittest.TestCase):
 class TestFinecoPizza(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"SumUp *New Pizza Nove Noventa Padov IT Carta N. ***** 142 Data operazione 11/09/22" """
+        self.csv = """"22/06/2017";"1";"";"Pagamento Visa Debit";"SumUp *New Pizza Nove Noventa Padov IT Carta N. ***** 142 Data operazione 11/09/22" """
         
 
     def test_can_instantiate(self):
@@ -898,7 +898,7 @@ class TestFinecoPizza(unittest.TestCase):
 class TestFinecoPizzalonga(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"ROLAND FATA D.I. NOVENTA PADOV IT Carta N. ***** 142 Data operazione 06/10/19" """
+        self.csv = """"22/06/2017";"1";"";"Pagamento Visa Debit";"ROLAND FATA D.I. NOVENTA PADOV IT Carta N. ***** 142 Data operazione 06/10/19" """
         
 
     def test_can_instantiate(self):
@@ -925,7 +925,7 @@ class TestFinecoPizzalonga(unittest.TestCase):
 class TestFinecoPizzalonga2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 24/11/19 ora 20:06 presso: PIZZALONGA AWAY VIA VALMARANA 44 NOVENTA PADOVANA 35027 ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 24/11/19 ora 20:06 presso: PIZZALONGA AWAY VIA VALMARANA 44 NOVENTA PADOVANA 35027 ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -951,7 +951,7 @@ class TestFinecoPizzalonga2(unittest.TestCase):
 class TestFinecoPizzalonga3(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 25/01/21 ora 19:44 presso: PADOVA FOOD   VIA SERGIO FRACCALA   PADOVA   35129        ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 25/01/21 ora 19:44 presso: PADOVA FOOD   VIA SERGIO FRACCALA   PADOVA   35129        ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -967,7 +967,7 @@ class TestFinecoPizzalonga3(unittest.TestCase):
 class TestFinecoPizzalonga4(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 23/11/21 ora 18:15 presso: PADOVA HFB ECO   VIA SERGIO FRACCALA   PADOVA   35129        ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 23/11/21 ora 18:15 presso: PADOVA HFB ECO   VIA SERGIO FRACCALA   PADOVA   35129        ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -983,7 +983,7 @@ class TestFinecoPizzalonga4(unittest.TestCase):
 class TestFinecoNai(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 19/10/19 ora 11:44 presso: NAI SRL VIA G. DE MENABUOI PADOVA 35100 ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 19/10/19 ora 11:44 presso: NAI SRL VIA G. DE MENABUOI PADOVA 35100 ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1009,7 +1009,7 @@ class TestFinecoNai(unittest.TestCase):
 class TestFinecoCanone(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/12/2020;30/11/2020;;"3,95";Canone Mensile Conto;Canone Mensile Conto Novembre 2020"""
+        self.csv = """30/11/2020;;"3,95";Canone Mensile Conto;Canone Mensile Conto Novembre 2020"""
         
 
     def test_can_instantiate(self):
@@ -1035,7 +1035,7 @@ class TestFinecoCanone(unittest.TestCase):
 class TestFinecoCanone2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/12/2020;30/11/2020;"3,95";0;Rimborso Canone 2020;Rimborso Canone Mensile Novembre 2020"""
+        self.csv = """30/11/2020;"3,95";0;Rimborso Canone 2020;Rimborso Canone Mensile Novembre 2020"""
         
 
     def test_can_instantiate(self):
@@ -1061,7 +1061,7 @@ class TestFinecoCanone2(unittest.TestCase):
 class TestFinecoMacelleria(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 29/02/20 ora 17:34 presso: LA MACELLERIA DA GIANNI VIA MARCONI 18 NOVE NOVENTA PADOVANA 35027 ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 29/02/20 ora 17:34 presso: LA MACELLERIA DA GIANNI VIA MARCONI 18 NOVE NOVENTA PADOVANA 35027 ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1087,7 +1087,7 @@ class TestFinecoMacelleria(unittest.TestCase):
 class TestFinecoMacelleria2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 03/06/22 ora 18:59 presso: MANUEL DARIO MACELLERI VIA ROMA 99 NOVENTA PADOV 35027 ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 03/06/22 ora 18:59 presso: MANUEL DARIO MACELLERI VIA ROMA 99 NOVENTA PADOV 35027 ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1103,7 +1103,7 @@ class TestFinecoMacelleria2(unittest.TestCase):
 class TestFinecoSupermercato(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 22/09/20 ora 18:54 presso: SUPERMERCATO ASPIAG SERVICE S.R.L. VIA UDINE,3 CAPRICCI PADOVA 35010 PD IT Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 22/09/20 ora 18:54 presso: SUPERMERCATO ASPIAG SERVICE S.R.L. VIA UDINE,3 CAPRICCI PADOVA 35010 PD IT Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1127,7 +1127,7 @@ class TestFinecoSupermercato(unittest.TestCase):
 class TestFinecoPanBianco(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 02/11/21 ora 17:33 presso: PAN BIANCO SNC   VIA ROMA 177   NOVENTA PADOVANA   35027        ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 02/11/21 ora 17:33 presso: PAN BIANCO SNC   VIA ROMA 177   NOVENTA PADOVANA   35027        ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1143,7 +1143,7 @@ class TestFinecoPanBianco(unittest.TestCase):
 class TestFinecoPanificio(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"PANIFICIO ALLA ROSA PADOVA IT Carta N. ***** 142 Data operazione 24/09/22" """
+        self.csv = """"22/06/2017";"1";"";"Pagamento Visa Debit";"PANIFICIO ALLA ROSA PADOVA IT Carta N. ***** 142 Data operazione 24/09/22" """
         
 
     def test_can_instantiate(self):
@@ -1159,7 +1159,7 @@ class TestFinecoPanificio(unittest.TestCase):
 class TestFinecoOrtofrutta(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 05/02/22 ora 11:24 presso: BALDON ANGELA D.I.   VIA ROMA 138   NOVENTA PADOV   35027        ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 05/02/22 ora 11:24 presso: BALDON ANGELA D.I.   VIA ROMA 138   NOVENTA PADOV   35027        ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1175,7 +1175,7 @@ class TestFinecoOrtofrutta(unittest.TestCase):
 class TestFinecoMercato1(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 24/08/21 ora 11:46 presso: FINACOM   VIA ROMA 70/A   VIGONOVO   30030     NF ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 24/08/21 ora 11:46 presso: FINACOM   VIA ROMA 70/A   VIGONOVO   30030     NF ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1191,7 +1191,7 @@ class TestFinecoMercato1(unittest.TestCase):
 class TestFinecoMercato2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 08/06/21 ora 12:06 presso: GIANNI E MIRCA   VIA FERROVIA,28   DOLO   30031     VE ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 08/06/21 ora 12:06 presso: GIANNI E MIRCA   VIA FERROVIA,28   DOLO   30031     VE ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1207,7 +1207,7 @@ class TestFinecoMercato2(unittest.TestCase):
 class TestFinecoMercato3(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 06/07/21 ora 11:05 presso: PIZZOLATO ANTONIO DI   VIA SORAN 5   MALO   36034        ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 06/07/21 ora 11:05 presso: PIZZOLATO ANTONIO DI   VIA SORAN 5   MALO   36034        ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1223,7 +1223,7 @@ class TestFinecoMercato3(unittest.TestCase):
 class TestFinecoGelateriaAngela(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"SumUp  *LA BOTTEGA DI  Noventa Padov IT Carta N. ***** 142                      Data operazione 08/03/21" """
+        self.csv = """"22/06/2017";"1";"";"Pagamento Visa Debit";"SumUp  *LA BOTTEGA DI  Noventa Padov IT Carta N. ***** 142                      Data operazione 08/03/21" """
         
 
     def test_can_instantiate(self):
@@ -1239,7 +1239,7 @@ class TestFinecoGelateriaAngela(unittest.TestCase):
 class TestFinecoGelateriaAngela2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 14/06/22 ora 20:32 presso: THE ICELAB VIA CADUTI SUL LAVORO, 26 NOVENTA PADOV 35027 ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 14/06/22 ora 20:32 presso: THE ICELAB VIA CADUTI SUL LAVORO, 26 NOVENTA PADOV 35027 ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1255,7 +1255,7 @@ class TestFinecoGelateriaAngela2(unittest.TestCase):
 class TestFinecoPrenatal1(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 26/02/21 ora 19:29 presso: PRENATAL RETAIL GROUP SPA   VIA FRACCALANZA 5B   PADOVA   35129     PD IT Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 26/02/21 ora 19:29 presso: PRENATAL RETAIL GROUP SPA   VIA FRACCALANZA 5B   PADOVA   35129     PD IT Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1271,7 +1271,7 @@ class TestFinecoPrenatal1(unittest.TestCase):
 class TestFinecoPrenatal2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 30/01/21 ora 18:48 presso: PRENATAL 2   VIA VENEZIA 132   PADOVA   35100        ITA Carta N° *****313 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 30/01/21 ora 18:48 presso: PRENATAL 2   VIA VENEZIA 132   PADOVA   35100        ITA Carta N° *****313 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1287,7 +1287,7 @@ class TestFinecoPrenatal2(unittest.TestCase):
 class TestFinecoOviesse(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"OVIESSE                PADOVA        IT Carta N. ***** 142                      Data operazione 12/10/21" """
+        self.csv = """"22/06/2017";"1";"";"Pagamento Visa Debit";"OVIESSE                PADOVA        IT Carta N. ***** 142                      Data operazione 12/10/21" """
         
 
     def test_can_instantiate(self):
@@ -1303,7 +1303,7 @@ class TestFinecoOviesse(unittest.TestCase):
 class TestFinecoFarmacia(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 09/09/21 ora 19:13 presso: FARMACIA ALLA RIVIERA   VIA ROMA 23   NOVENTA PADOVANA   35027     PD ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 09/09/21 ora 19:13 presso: FARMACIA ALLA RIVIERA   VIA ROMA 23   NOVENTA PADOVANA   35027     PD ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1319,7 +1319,7 @@ class TestFinecoFarmacia(unittest.TestCase):
 class TestFinecoFarmacia2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"WWW.LLOYDSFARMACIA.IT  MILANO        IT Carta N. ***** 142                      Data operazione xxx" """
+        self.csv = """"22/06/2017";"1";"";"Pagamento Visa Debit";"WWW.LLOYDSFARMACIA.IT  MILANO        IT Carta N. ***** 142                      Data operazione xxx" """
         
 
     def test_can_instantiate(self):
@@ -1338,7 +1338,7 @@ class TestFinecoFarmacia2(unittest.TestCase):
 class TestFinecoFarmacia3(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 02/12/22 ora 16:38 presso: LLOYDS FARMACIA ALLA P   VIA REZZONICO   PADOVA   35100        ITA Carta N° *****314 Nessuna Commissione" """
+        self.csv = """"22/06/2017";"1";"";"PagoBancomat POS";"Pag. del 02/12/22 ora 16:38 presso: LLOYDS FARMACIA ALLA P   VIA REZZONICO   PADOVA   35100        ITA Carta N° *****314 Nessuna Commissione" """
         
 
     def test_can_instantiate(self):
@@ -1354,7 +1354,7 @@ class TestFinecoFarmacia3(unittest.TestCase):
 class TestFinecoInps(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: INPS-IT-ROMA-via Ciro il Grande 21 Ben: URSINO GIUSEPPE Dt-ord: 23/08/2021 Banca Ord: BANCA DITALIA Info-Cli: /BENEF/LUG 2021  .RSNMVT21A68G224L                                 .         .                                                 .         ." """
+        self.csv = """"22/06/2017";"1";"";"Bonifico SEPA Italia";"Ord: INPS-IT-ROMA-via Ciro il Grande 21 Ben: URSINO GIUSEPPE Dt-ord: 23/08/2021 Banca Ord: BANCA DITALIA Info-Cli: /BENEF/LUG 2021  .RSNMVT21A68G224L                                 .         .                                                 .         ." """
         
 
     def test_can_instantiate(self):
@@ -1370,7 +1370,7 @@ class TestFinecoInps(unittest.TestCase):
 class TestNuoto(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """ "22/06/2017";"22/06/2017";"1";"";"Pagamento Visa Debit";"CENTRO NUOTO STRA S.R. STRA          IT Carta N. ***** 134 Data operazione xxx" """
+        self.csv = """"22/06/2017";"1";"";"Pagamento Visa Debit";"CENTRO NUOTO STRA S.R. STRA          IT Carta N. ***** 134 Data operazione xxx" """
         
 
     def test_can_instantiate(self):

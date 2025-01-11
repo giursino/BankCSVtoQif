@@ -39,40 +39,40 @@ class Fineco(BankAccountConfig):
         self.default_memo = ''
 
     def get_date(self, line):
-        s = line[1].split('/')
+        s = line[0].split('/')
         #                 yyyy       mm        dd
         return datetime(int(s[2]), int(s[1]), int(s[0]))
 
     def get_description(self, line):
-        ttype = line[4]
+        ttype = line[3]
         description = "<COMPLETARE>"
         
         if (ttype == "PagoBancomat POS"):
-            d = re.compile('^Pag.*presso\: (.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
-            g = d.match(line[5])
+            d = re.compile(r'^Pag.*presso: (.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
+            g = d.match(line[4])
             if (g is not None) and (g.group(1)): 
               description = g.group(1)
 
               # STAZIONE SCANAGATTA
-              d = re.compile('^S[ ]*T[ ]*A[ ]*Z[ ]*I[ ]*O[ ]*N[ ]*E[ ]*[_ ]*S[ ]*C[ ]*A[ ]*N[ ]*A[ ]*G[ ]*A[ ]*T[ ]*T.*$');
+              d = re.compile(r'^S[ ]*T[ ]*A[ ]*Z[ ]*I[ ]*O[ ]*N[ ]*E[ ]*[_ ]*S[ ]*C[ ]*A[ ]*N[ ]*A[ ]*G[ ]*A[ ]*T[ ]*T.*$');
               g = d.match(description);
               if (g is not None): description = "STAZIONE SCANAGATTA"
             
         elif (ttype == "Pagamento Visa Debit"):
-            d = re.compile('^(.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
-            g = d.match(line[5])
+            d = re.compile(r'^(.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
+            g = d.match(line[4])
             if (g is not None) and g.group(1): description = g.group(1)
             
         elif (ttype == "SEPA Direct Debit"):
-            d = re.compile('^(.*) A[ ]*d[ ]*d[ ]*e[ ]*b[ ]*i[ ]*t[ ]*o[ ]* [ ]*S[ ]*D[ ]*D[ ]*.*$')
-            #d = re.compile('^(.*)Addebito SDD.*$')
-            #d = re.compile('^(.*)$')
-            g = d.match(line[5])
+            d = re.compile(r'^(.*) A[ ]*d[ ]*d[ ]*e[ ]*b[ ]*i[ ]*t[ ]*o[ ]* [ ]*S[ ]*D[ ]*D[ ]*.*$')
+            #d = re.compile(r'^(.*)Addebito SDD.*$')
+            #d = re.compile(r'^(.*)$')
+            g = d.match(line[4])
             if (g is not None) and g.group(1): description = g.group(1)
             
         elif (ttype == "Bonifico SEPA Italia"):
-            d = re.compile('^Ben\: (.*) Ins\:.*$|^Ord\: (.*) Ben\:.*$')
-            g = d.match(line[5])
+            d = re.compile(r'^Ben: (.*) Ins:.*$|^Ord\: (.*) Ben\:.*$')
+            g = d.match(line[4])
             if (g is not None):
         
               # Bonifico in uscita
@@ -84,8 +84,8 @@ class Fineco(BankAccountConfig):
                 
                 # FASIOPEN
                 if (g.group(2) == "FASI"):
-                  fasi_descr = re.compile('.* Info-Cli\: .* ([0-9]{2})[/ ]{1}([0-9]{2})[/ ]{1}([0-9]{4})$');
-                  fasi_date = fasi_descr.match(line[5]);
+                  fasi_descr = re.compile(r'.* Info-Cli: .* ([0-9]{2})[/ ]{1}([0-9]{2})[/ ]{1}([0-9]{4})$');
+                  fasi_date = fasi_descr.match(line[4]);
                   if (fasi_date is not None): description = "FASIOPEN (Rimborso del " + fasi_date.group(1) + "." + fasi_date.group(2) + "." + fasi_date.group(3) + ")"
                   
                 else:
@@ -127,18 +127,18 @@ class Fineco(BankAccountConfig):
         return ' '.join(description.split())
         
     def get_memo(self, line):
-        memo = line[4] + ' - ' + line[5]
+        memo = line[3] + ' - ' + line[4]
         return ' '.join(memo.split())
 
     def get_debit(self, line):
-        return self.get_absolute_amount(line[3])
+        return self.get_absolute_amount(line[2])
 
     def get_credit(self, line):
-        return self.get_absolute_amount(line[2])
+        return self.get_absolute_amount(line[1])
         
     def get_target_account(self, line):
         target = self.default_target_account
-        ttype = line[4]
+        ttype = line[3]
         
         if (ttype == "FastPay"):
             target = "Uscite:Mobilità:Auto:Autostrada"
@@ -169,37 +169,37 @@ class Fineco(BankAccountConfig):
             if (description != "<COMPLETARE>"):
                 
                 # STAZIONE_SCANAGATT
-                d = re.compile('^S[ ]*T[ ]*A[ ]*Z[ ]*I[ ]*O[ ]*N[ ]*E[ ]*[_ ]*S[ ]*C[ ]*A[ ]*N[ ]*A[ ]*G[ ]*A[ ]*T[ ]*T.*$');
+                d = re.compile(r'^S[ ]*T[ ]*A[ ]*Z[ ]*I[ ]*O[ ]*N[ ]*E[ ]*[_ ]*S[ ]*C[ ]*A[ ]*N[ ]*A[ ]*G[ ]*A[ ]*T[ ]*T.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Mobilità:Auto:Carburante"
             
                 # ENI
-                d = re.compile('^ENI .*$');
+                d = re.compile(r'^ENI .*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Mobilità:Auto:Carburante"
             
                 # ESSO
-                d = re.compile('.* ESSO .*$');
+                d = re.compile(r'.* ESSO .*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Mobilità:Auto:Carburante"
 
                 # AUTOST
-                d = re.compile('^A[ ]*U[ ]*T[ ]*O[ ]*S[ ]*T.*$');
+                d = re.compile(r'^A[ ]*U[ ]*T[ ]*O[ ]*S[ ]*T.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Mobilità:Auto:Autostrada"
              
                 # FARMACIA
-                d = re.compile('.*F[ ]*A[ ]*R[ ]*M[ ]*A[ ]*C[ ]*I[ ]*A.*$');
+                d = re.compile(r'.*F[ ]*A[ ]*R[ ]*M[ ]*A[ ]*C[ ]*I[ ]*A.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Sanità:Farmaci"
              
                 # PAYPAL
-                d = re.compile('.*P[ ]*a[ ]*y[ ]*P[ ]*a[ ]*l.*$');
+                d = re.compile(r'.*P[ ]*a[ ]*y[ ]*P[ ]*a[ ]*l.*$');
                 g = d.match(description);
                 if (g is not None): return "Attività:Attività correnti:Conto corrente:Paypal"
 
                 # MYCICERO
-                d = re.compile('.*WWW.MYCICERO.IT.*$');
+                d = re.compile(r'.*WWW.MYCICERO.IT.*$');
                 g = d.match(description);
                 if (g is not None): return "Uscite:Mobilità:Auto:Parcheggio"
 
@@ -209,7 +209,7 @@ class Fineco(BankAccountConfig):
                   
           # FASIOPEN
           # Rimosso perchè con più persone può andare in passività o in attività
-          #d = re.compile('Ord\: FASI Ben\:')
+          #d = re.compile(r'Ord\: FASI Ben\:')
           #g = d.match(line[5])
           #if (g is not None): return "Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria"
 

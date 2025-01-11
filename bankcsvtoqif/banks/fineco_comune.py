@@ -39,16 +39,16 @@ class FinecoComune(BankAccountConfig):
         self.default_memo = ''
 
     def get_date(self, line):
-        s = line[1].split('/')
+        s = line[0].split('/')
         return datetime(int(s[2]), int(s[1]), int(s[0]))
 
     def get_description(self, line):
-        ttype = line[4]
+        ttype = line[3]
         description = "<COMPLETARE>"
         
         if (ttype == "PagoBancomat POS"):
             d = re.compile('^Pag.*presso\: (.*) C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None) and (g.group(1)): description = g.group(1)
             
             # Rinomino in modo comprensibile: IperCoop
@@ -59,7 +59,7 @@ class FinecoComune(BankAccountConfig):
             
         elif (ttype == "Pagamento Visa Debit"):
             d = re.compile('^(.*)C[ ]*a[ ]*r[ ]*t[ ]*a.*$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None) and g.group(1): description = g.group(1)
 
             # Rinomino in modo comprensibile: Pizzalonga
@@ -70,7 +70,7 @@ class FinecoComune(BankAccountConfig):
             
         elif (ttype == "Bonifico SEPA Italia"):
             d = re.compile('^Ben\: (.*) Ins\:.* Cau\: (.*)$|^Ord\: (.*) Ben\:.* Info-Cli\: (.*)$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None) and g.group(1) and g.group(2): description = g.group(1) + " - " + g.group(2)
             if (g is not None) and g.group(3) and g.group(4): description = g.group(3) + " - " + g.group(4)
             
@@ -104,7 +104,7 @@ class FinecoComune(BankAccountConfig):
             
         elif (ttype == "SEPA Direct Debit"):
             d = re.compile('^(.*) A[ ]*d[ ]*d[ ]*e[ ]*b[ ]*i[ ]*t[ ]*o[ ]* S[ ]*D[ ]*D[ ]*.*$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None) and g.group(1): description = g.group(1)
             
             # Rinomino in modo comprensibile: ETRA
@@ -113,7 +113,7 @@ class FinecoComune(BankAccountConfig):
         
         elif (ttype == "Giroconto"):
             d = re.compile('^Giroconto (dal|sul) cc n. [0-9]*([0-9]{3}).*01[ -]*(.*)$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None) and g.group(2) and g.group(3):
                 if g.group(2) == "990": description = "Giuseppe" + " - " + g.group(3)
                 elif g.group(2) == "660": description = "Giulia" + " - " + g.group(3)
@@ -122,18 +122,18 @@ class FinecoComune(BankAccountConfig):
         return ' '.join(description.split())
         
     def get_memo(self, line):
-        memo = line[4] + ' - ' + line[5]
+        memo = line[3] + ' - ' + line[4]
         return ' '.join(memo.split())
 
     def get_debit(self, line):
-        return self.get_absolute_amount(line[3])
+        return self.get_absolute_amount(line[2])
 
     def get_credit(self, line):
-        return self.get_absolute_amount(line[2])
+        return self.get_absolute_amount(line[1])
         
     def get_target_account(self, line):
         target = self.default_target_account
-        ttype = line[4]
+        ttype = line[3]
         
         if (ttype == "FastPay"):
             target = "Uscite:Trasporti"
@@ -323,29 +323,29 @@ class FinecoComune(BankAccountConfig):
             
             # Giulia
             d = re.compile('Ord\: FAVARETTO GIULIA Ben\:')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Entrate:Giulia"
             
             # GSE
             d = re.compile('Ord\: GSE S.P.A. Ben\:')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Uscite:Servizi:Elettricità"
 
             # GSE
             d = re.compile('Ord\: GESTORE DEI SERVIZI ENERGETICI.* Ben\:')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Uscite:Servizi:Elettricità"
 
             # INPS
             d = re.compile('Ord\: INPS')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Entrate:Contributi Statali"
 
 
         elif (ttype == "Giroconto"):
             
             d = re.compile('^Giroconto (dal|sul) cc n. [0-9]*([0-9]{3}).*01[ -]*(.*)$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             # Giuseppe
             if (g is not None) and g.group(2) and g.group(3) and g.group(2) == "990":
                 if  "TRASFERIMENTO" in g.group(3): return "Entrate:Giuseppe"
@@ -358,32 +358,32 @@ class FinecoComune(BankAccountConfig):
             # Internet
             #d = re.compile('W[ ]*i[ ]*n[ ]*d[ ]*-[ ]*T[ ]*r[ ]*e[ ]*')
             d = re.compile('(?i)WIND[- ]TRE')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Uscite:Servizi:Internet"
             
             # Enel
             d = re.compile('^.*E[ ]*L[ ]*E[ ]*T[ ]*T[ ]*R[ ]*I[ ]*C[ ]*O.*$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Uscite:Servizi:Elettricità"
 
             # Elettricità Sorgenia
             d = re.compile('^.*Sorgenia.*$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Uscite:Servizi:Elettricità"
             
             # Elettricità A2A
             d = re.compile('^.*A2A.*$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Uscite:Servizi:Elettricità"
             
             # Acqua
             d = re.compile('^.*E[ ]*N[ ]*E[ ]*R[ ]*G[ ]*I[ ]*A[ ]*T[ ]*E[ ]*R[ ]*R[ ]*I[ ]*T[ ]*O[ ]*R[ ]*I[ ]*O.*$')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Uscite:Servizi:Acqua"
             
             # Acqua
             d = re.compile('.*ETRA.*')
-            g = d.match(line[5])
+            g = d.match(line[4])
             if (g is not None): return "Uscite:Servizi:Acqua"
             
         return target

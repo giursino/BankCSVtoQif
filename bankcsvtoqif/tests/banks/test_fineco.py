@@ -29,7 +29,7 @@ target_account = 'Sbilancio-EUR'
 class TestFinecoFastpay(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10,1";FastPay;Addebito FASTPAY Pedaggi da 01/08/16 al 31/08/16 Numero di pagamenti effettuati: 1"""
+        self.csv = """07/08/2016;;"10,1";FastPay;Addebito FASTPAY Pedaggi da 01/08/16 al 31/08/16 Numero di pagamenti effettuati: 1"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -54,7 +54,7 @@ class TestFinecoFastpay(unittest.TestCase):
 class TestFinecoPrelievo(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """30/05/2016;27/05/2016;;250;Prelievi Bancomat extra Gruppo;Prelevamento Carta N ***** Data operazione 27/5/2016 Ora 13:41"""
+        self.csv = """27/05/2016;;250;Prelievi Bancomat extra Gruppo;Prelevamento Carta N ***** Data operazione 27/5/2016 Ora 13:41"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -79,7 +79,7 @@ class TestFinecoPrelievo(unittest.TestCase):
 class TestFinecoBonificoOut(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """01/08/2016;01/08/2016;;38;Bonifico SEPA Italia;Ben: GIULIA XXX Ins: 30/07/2016 11 :42 Da: INTERNET Iban 444444 1111 TransID: 33333 1111 Cau: Saldo cene"""
+        self.csv = """01/08/2016;;38;Bonifico SEPA Italia;Ben: GIULIA XXX Ins: 30/07/2016 11 :42 Da: INTERNET Iban 444444 1111 TransID: 33333 1111 Cau: Saldo cene"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -103,7 +103,7 @@ class TestFinecoBonificoOut(unittest.TestCase):
 class TestFinecoBonificoIn(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """10/06/2016;10/06/2016;"15.039,3";;Bonifico SEPA Italia;Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
+        self.csv = """10/06/2016;"15.039,3";;Bonifico SEPA Italia;Ord: Ascell Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -127,7 +127,7 @@ class TestFinecoBonificoIn(unittest.TestCase):
 class TestFinecoVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """22/06/2016;18/06/2016;;"13,53";Pagamento Visa Debit;REPSOL DISTRIBUTORE    VIGONZA       IT Carta N. *****513 Data operazione 18/06/2016"""
+        self.csv = """18/06/2016;;"13,53";Pagamento Visa Debit;REPSOL DISTRIBUTORE    VIGONZA       IT Carta N. *****513 Data operazione 18/06/2016"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -151,7 +151,7 @@ class TestFinecoVisa(unittest.TestCase):
 class TestFinecoPOSError(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"""
+        self.csv = """07/08/2016;;"10";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Car ta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -176,7 +176,7 @@ class TestFinecoPOSError(unittest.TestCase):
 class TestFinecoPOS(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
+        self.csv = """07/08/2016;;"10";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -201,7 +201,7 @@ class TestFinecoPOS(unittest.TestCase):
 class TestFinecoRicarica(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """16/06/2017;16/06/2017;;"20";Ricarica telefonica;Ricarica telefonica: 3488727259 Data: 16 /06/17 Ora: 18:08"""
+        self.csv = """16/06/2017;;"20";Ricarica telefonica;Ricarica telefonica: 3488727259 Data: 16 /06/17 Ora: 18:08"""
         
 
     def test_can_instantiate(self):
@@ -228,7 +228,7 @@ class TestFinecoRicarica(unittest.TestCase):
 class TestFinecoFasi1(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """10/06/2016;10/06/2016;"39,3";;Bonifico SEPA Italia;Ord: FASI Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
+        self.csv = """10/06/2016;"39,3";;Bonifico SEPA Italia;Ord: FASI Ben: XXX GIUSEPPE Dt-Reg: 1 0/06/2016 Banca Ord: ROMAITRRXXX Info: N OTPROVIDED Info-Cli: RIMBORSO - VS. RIF. RICHIESTA E DEL 21 04 2016"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -254,7 +254,7 @@ class TestFinecoFasi1(unittest.TestCase):
 class TestFinecoFasi2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """10/06/2016;10/06/2016;"39,3";;Bonifico SEPA Italia;Ord: FASI Ben: XXX GIUSEPPE Dt-ord: 10/12/2019 Banca Ord: BANCA DI CREDITO COOPERAT Info-Cli: RIMBORSO FASIOPEN - VS. RIF. RICHIESTA/E DEL 15/10/2019"""
+        self.csv = """10/06/2016;"39,3";;Bonifico SEPA Italia;Ord: FASI Ben: XXX GIUSEPPE Dt-ord: 10/12/2019 Banca Ord: BANCA DI CREDITO COOPERAT Info-Cli: RIMBORSO FASIOPEN - VS. RIF. RICHIESTA/E DEL 15/10/2019"""
 
     def test_can_instantiate(self):
         account_config = Fineco()
@@ -280,7 +280,7 @@ class TestFinecoFasi2(unittest.TestCase):
 class TestFinecoParcheggioMyCicero(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";Pagamento Visa Debit;WWW.MYCICERO.IT SENIGALLIA IT Carta N. ***** 513 Data operazione 14/12/20"""
+        self.csv = """07/08/2016;;"10";Pagamento Visa Debit;WWW.MYCICERO.IT SENIGALLIA IT Carta N. ***** 513 Data operazione 14/12/20"""
         
 
     def test_can_instantiate(self):
@@ -306,7 +306,7 @@ class TestFinecoParcheggioMyCicero(unittest.TestCase):
 class TestFinecoCarburante1(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: STAZIONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
+        self.csv = """07/08/2016;;"10";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: STAZIONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -332,7 +332,7 @@ class TestFinecoCarburante1(unittest.TestCase):
 class TestFinecoCarburante2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";PagoBancomat POS;Pag. del 27/11/19 ora 18:24 presso: STAZIONE SCANAGATT VIA DELL'INDUSTRIA PIANEZZE 36060 ITA Carta N° *****551 Nessuna Commissione"""
+        self.csv = """07/08/2016;;"10";PagoBancomat POS;Pag. del 27/11/19 ora 18:24 presso: STAZIONE SCANAGATT VIA DELL'INDUSTRIA PIANEZZE 36060 ITA Carta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -358,7 +358,7 @@ class TestFinecoCarburante2(unittest.TestCase):
 class TestFinecoCarburante3(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";Pagamento Visa Debit;ENI STATION PADOVA IT Carta N. ***** 513 Data operazione 25/11/20"""
+        self.csv = """07/08/2016;;"10";Pagamento Visa Debit;ENI STATION PADOVA IT Carta N. ***** 513 Data operazione 25/11/20"""
         
 
     def test_can_instantiate(self):
@@ -384,7 +384,7 @@ class TestFinecoCarburante3(unittest.TestCase):
 class TestFinecoCarburante4(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";PagoBancomat POS;Pag. del 27/07/20 ora 17:34 presso: DISTRIBUTORE ESSO   VIA PONTAROLA RESCH   PADOVA   35100 ITA Carta N° *****551 Nessuna Commissione"""
+        self.csv = """07/08/2016;;"10";PagoBancomat POS;Pag. del 27/07/20 ora 17:34 presso: DISTRIBUTORE ESSO   VIA PONTAROLA RESCH   PADOVA   35100 ITA Carta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -410,7 +410,7 @@ class TestFinecoCarburante4(unittest.TestCase):
 class TestFinecoCarburanteError(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
+        self.csv = """07/08/2016;;"10";PagoBancomat POS;Pag. del 15/06/17 ora 17:44 presso: STAZ IONE_SCANAGATT VIA DELL'INDUSTRIA KM. 23 PIANEZZE SAN 36060 ITA Carta N° *****551 Nessuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -436,7 +436,7 @@ class TestFinecoCarburanteError(unittest.TestCase):
 class TestFinecoAutostradaVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";Pagamento Visa Debit;AUTOST GRISIGNANO/PADO OVEST         IT Carta N. ***** 513 Data operazione 08/06/17"""
+        self.csv = """07/08/2016;;"10";Pagamento Visa Debit;AUTOST GRISIGNANO/PADO OVEST         IT Carta N. ***** 513 Data operazione 08/06/17"""
         
 
     def test_can_instantiate(self):
@@ -462,7 +462,7 @@ class TestFinecoAutostradaVisa(unittest.TestCase):
 class TestFinecoAutostradaPos(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";PagoBancomat POS;Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"""
+        self.csv = """07/08/2016;;"10";PagoBancomat POS;Pag. del 08/06/17 ora 09:29 presso: AUT OST GRISIGNANO/PADO OVEST IT Carta N° *****551 Ne ssuna Commissione"""
         
 
     def test_can_instantiate(self):
@@ -488,7 +488,7 @@ class TestFinecoAutostradaPos(unittest.TestCase):
 class TestFinecoFarmaciaVisa(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";Pagamento Visa Debit;FARMACIA ALL ANGELO    PADOVA        IT Carta N. ***** 513 Data operazione 04/05/17"""
+        self.csv = """07/08/2016;;"10";Pagamento Visa Debit;FARMACIA ALL ANGELO    PADOVA        IT Carta N. ***** 513 Data operazione 04/05/17"""
         
 
     def test_can_instantiate(self):
@@ -514,7 +514,7 @@ class TestFinecoFarmaciaVisa(unittest.TestCase):
 class TestFinecoFarmaciaPos(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";PagoBancomat POS;Pag. del 04/03/17 ora 10:58 presso: FARMACIA AI DUE GIGLI VIA DANTE 27 P ADOVA 35100 NFTITA Carta N° *****551 Nessuna commissione"""
+        self.csv = """07/08/2016;;"10";PagoBancomat POS;Pag. del 04/03/17 ora 10:58 presso: FARMACIA AI DUE GIGLI VIA DANTE 27 P ADOVA 35100 NFTITA Carta N° *****551 Nessuna commissione"""
         
 
     def test_can_instantiate(self):
@@ -541,7 +541,7 @@ class TestFinecoFarmaciaPos(unittest.TestCase):
 class TestFinecoMaxiprelievo(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";Maxiprelievo;Prelevamento carta N° *****        551 Data operazione"""
+        self.csv = """07/08/2016;;"10";Maxiprelievo;Prelevamento carta N° *****        551 Data operazione"""
         
 
     def test_can_instantiate(self):
@@ -567,7 +567,7 @@ class TestFinecoMaxiprelievo(unittest.TestCase):
 class TestFinecoCanone(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/12/2020;30/11/2020;;"3,95";Canone Mensile Conto;Canone Mensile Conto Novembre 2020"""
+        self.csv = """30/11/2020;;"3,95";Canone Mensile Conto;Canone Mensile Conto Novembre 2020"""
         
 
     def test_can_instantiate(self):
@@ -593,7 +593,7 @@ class TestFinecoCanone(unittest.TestCase):
 class TestFinecoCanone2(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/12/2020;30/11/2020;"3,95";0;Sconto Canone Mensile;Sconto Canone Mensile Novembre 2020"""
+        self.csv = """30/11/2020;"3,95";0;Sconto Canone Mensile;Sconto Canone Mensile Novembre 2020"""
         
 
     def test_can_instantiate(self):
@@ -619,7 +619,7 @@ class TestFinecoCanone2(unittest.TestCase):
 class TestFinecoImpostaBollo(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";Imposta bollo conto corrente;Imposta di bollo di conto corrente del 31.12.2017"""
+        self.csv = """07/08/2016;;"10";Imposta bollo conto corrente;Imposta di bollo di conto corrente del 31.12.2017"""
         
 
     def test_can_instantiate(self):
@@ -646,7 +646,7 @@ class TestFinecoImpostaBollo(unittest.TestCase):
 class TestFinecoImpostaBolloTitoli(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";Imposta bollo dossier titoli;Addebito imposta di bollo Dossier"""
+        self.csv = """07/08/2016;;"10";Imposta bollo dossier titoli;Addebito imposta di bollo Dossier"""
         
 
     def test_can_instantiate(self):
@@ -673,7 +673,7 @@ class TestFinecoImpostaBolloTitoli(unittest.TestCase):
 class TestFinecoSEPADirectDebitPaypal(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";SEPA Direct Debit;PayPal (Europe) S.a.r.l. et Cie. S.C.A. Addebito SDD fattura a Vs carico da *** Mand *** Per ***"""
+        self.csv = """07/08/2016;;"10";SEPA Direct Debit;PayPal (Europe) S.a.r.l. et Cie. S.C.A. Addebito SDD fattura a Vs carico da *** Mand *** Per ***"""
         
 
     def test_can_instantiate(self):
@@ -699,7 +699,7 @@ class TestFinecoSEPADirectDebitPaypal(unittest.TestCase):
 class TestFinecoSEPADirectDebitNormal(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";SEPA Direct Debit;NEXI PAYMENTS SPA Addebito SDD fattura a Vs carico da *** Mand ***"""
+        self.csv = """07/08/2016;;"10";SEPA Direct Debit;NEXI PAYMENTS SPA Addebito SDD fattura a Vs carico da *** Mand ***"""
         
 
     def test_can_instantiate(self):
@@ -724,7 +724,7 @@ class TestFinecoSEPADirectDebitNormal(unittest.TestCase):
 class TestFinecoStipendio(unittest.TestCase):
 
     def setUp(self):
-        self.csv = """07/09/2016;07/08/2016;;"10";Stipendio;Ord: VIMAR SPA Ben: *** Dt-o rd: *** Banca Ord: *** Info-Cli: STIPENDIO ***"""
+        self.csv = """07/08/2016;;"10";Stipendio;Ord: VIMAR SPA Ben: *** Dt-o rd: *** Banca Ord: *** Info-Cli: STIPENDIO ***"""
         
 
     def test_can_instantiate(self):
