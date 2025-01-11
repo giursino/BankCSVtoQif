@@ -124,7 +124,9 @@ class Fineco(BankAccountConfig):
         elif (ttype == "Giroconto"):
             description = "CONTO CORRENTE COMUNE"
             
-        elif ((ttype == "Stacco Cedole Italia") or (ttype == "Ritenuta su Cedole")):
+        elif ((ttype == "Stacco Cedole Italia") or
+              (ttype == "Ritenuta su Cedole") or
+              (ttype == "Stacco Cedole Estero")):
             d = re.compile(r'^(Rit.)*[C|c]ed.su [0-9,.]+ (.*)$')
             g = d.match(line[4])
             if (g is not None) and (g.group(2)): 
@@ -220,7 +222,8 @@ class Fineco(BankAccountConfig):
           #if (g is not None): return "Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria"
 
         elif ((ttype == "Stacco Cedole Italia") or
-             (ttype == "Ritenuta su Cedole")):
+             (ttype == "Ritenuta su Cedole") or
+             (ttype == "Stacco Cedole Estero")):
           target = "Entrate:Interessi"
 
         return target

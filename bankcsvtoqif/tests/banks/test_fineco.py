@@ -797,3 +797,29 @@ class TestFinecoCedoleRitenuta(unittest.TestCase):
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoCedoleEstero(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """20/06/2024;1;;Stacco Cedole Estero;Ced.su 1.000,000 EIB-19GN24 4,25%;Contabilizzato"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2024, 6, 20)
+        description = "EIB-19GN24 4,25%"
+        memo = "Stacco Cedole Estero - Ced.su 1.000,000 EIB-19GN24 4,25%"
+        debit = 0
+        credit = 1
+        target_account = 'Entrate:Interessi'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
