@@ -744,3 +744,56 @@ class TestFinecoStipendio(unittest.TestCase):
         self.assertEqual(account_config.get_memo(line), memo)
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
+
+
+class TestFinecoCedole(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """13/12/2024;1;;Stacco Cedole Italia;Ced.su 1.000,000 BTP-VAL 13GN27SU CUM;Contabilizzato"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2024, 12, 13)
+        description = "BTP-VAL 13GN27SU CUM"
+        memo = "Stacco Cedole Italia - Ced.su 1.000,000 BTP-VAL 13GN27SU CUM"
+        debit = 0
+        credit = 1
+        target_account = 'Entrate:Interessi'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoCedoleRitenuta(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """10/07/2024;;-0,1;Ritenuta su Cedole;Rit.ced.su 1.000,000 BTP-VAL 10OT28SU CUM;Contabilizzato"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2024, 7, 10)
+        description = "BTP-VAL 10OT28SU CUM"
+        memo = "Ritenuta su Cedole - Rit.ced.su 1.000,000 BTP-VAL 10OT28SU CUM"
+        debit = 0.1
+        credit = 0
+        target_account = 'Entrate:Interessi'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)

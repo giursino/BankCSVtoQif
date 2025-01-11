@@ -124,6 +124,12 @@ class Fineco(BankAccountConfig):
         elif (ttype == "Giroconto"):
             description = "CONTO CORRENTE COMUNE"
             
+        elif ((ttype == "Stacco Cedole Italia") or (ttype == "Ritenuta su Cedole")):
+            d = re.compile(r'^(Rit.)*[C|c]ed.su [0-9,.]+ (.*)$')
+            g = d.match(line[4])
+            if (g is not None) and (g.group(2)): 
+              description = g.group(2)
+
         return ' '.join(description.split())
         
     def get_memo(self, line):
@@ -212,5 +218,9 @@ class Fineco(BankAccountConfig):
           #d = re.compile(r'Ord\: FASI Ben\:')
           #g = d.match(line[5])
           #if (g is not None): return "Attività:Attività correnti:Denaro Prestato:Anticipo:Fondo di Assistenza Sanitaria"
+
+        elif ((ttype == "Stacco Cedole Italia") or
+             (ttype == "Ritenuta su Cedole")):
+          target = "Entrate:Interessi"
 
         return target
