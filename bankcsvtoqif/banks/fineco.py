@@ -132,6 +132,12 @@ class Fineco(BankAccountConfig):
             if (g is not None) and (g.group(2)): 
               description = g.group(2)
 
+        elif (ttype == "Compravendita Titoli"):
+            d = re.compile(r'^Compravendita Titoli (.*) Qta.*$')
+            g = d.match(line[4])
+            if (g is not None) and (g.group(1)): 
+              description = g.group(1)
+
         return ' '.join(description.split())
         
     def get_memo(self, line):
@@ -225,5 +231,8 @@ class Fineco(BankAccountConfig):
              (ttype == "Ritenuta su Cedole") or
              (ttype == "Stacco Cedole Estero")):
           target = "Entrate:Interessi"
+
+        elif (ttype == "Compravendita Titoli"):
+          target = "Attività:Investimenti:Obbligazioni:Fineco - Dossier Titoli"
 
         return target

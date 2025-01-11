@@ -823,3 +823,29 @@ class TestFinecoCedoleEstero(unittest.TestCase):
         self.assertEqual(account_config.get_debit(line), debit)
         self.assertEqual(account_config.get_credit(line), credit)
         self.assertEqual(account_config.get_target_account(line), target_account)
+
+class TestFinecoAcquistoTitoli(unittest.TestCase):
+
+    def setUp(self):
+        self.csv = """09/01/2024;;-1,00;Compravendita Titoli;Compravendita Titoli EIB-19GN24 4,25% Qta/Val.nom. 1,0;Contabilizzato"""
+        
+
+    def test_can_instantiate(self):
+        account_config = Fineco()
+        self.assertEqual(type(account_config), Fineco)
+
+    def test_getters(self):
+        account_config = Fineco()
+        line = csvline_to_line(self.csv, account_config)
+        date = datetime(2024, 1, 9)
+        description = "EIB-19GN24 4,25%"
+        memo = "Compravendita Titoli - Compravendita Titoli EIB-19GN24 4,25% Qta/Val.nom. 1,0"
+        debit = 1
+        credit = 0
+        target_account = 'Attività:Investimenti:Obbligazioni:Fineco - Dossier Titoli'
+        self.assertEqual(account_config.get_date(line), date)
+        self.assertEqual(account_config.get_description(line), description)
+        self.assertEqual(account_config.get_memo(line), memo)
+        self.assertEqual(account_config.get_debit(line), debit)
+        self.assertEqual(account_config.get_credit(line), credit)
+        self.assertEqual(account_config.get_target_account(line), target_account)
